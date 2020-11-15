@@ -26,7 +26,6 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
               children: <Widget>[
                 Container(
                   child: Text("Thay đổi ngôn ngữ"),
-                  margin: EdgeInsets.only(le),
                 ),
               ],
             ),

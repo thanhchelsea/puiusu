@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_earthquake_network/data/model/model.dart';
@@ -72,7 +74,7 @@ class _DetailsState extends State<Details> {
                     Expanded(
                       child: _itemDetail(
                         "details.time",
-                        earthquakeModel.time,
+                        earthquakeModel.time.toString(),
                         Icon(
                           Icons.timer,
                           size: AppDimens.SIZE_30,
@@ -245,8 +247,8 @@ class _DetailsState extends State<Details> {
                     listMaker: list,
                     cameraPosition: CameraPosition(
                       target: LatLng(
-                        earthquakeModel.lat,
-                        earthquakeModel.lng,
+                       double.parse( earthquakeModel.lat),
+                        double.parse(earthquakeModel.lng),
                       ), // song gianh
                       zoom: 8,
                     ),

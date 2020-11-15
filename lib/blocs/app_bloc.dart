@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../constants.dart';
 import '../localizations.dart';
 import 'blocs.dart';

@@ -114,7 +114,7 @@ class EarthquakeItem extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 4.0),
                                   child: Text(
-                                    earthquakeModel.time,
+                                    earthquakeModel.time.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: FitnessAppTheme.fontName,
@@ -166,8 +166,8 @@ class EarthquakeItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '${double.parse(earthquakeModel.lat.toStringAsFixed(1))}, '
-                            '${double.parse(earthquakeModel.lng.toStringAsFixed(1))}',
+                            '${double.parse(earthquakeModel.lat.toString())}, '
+                            '${double.parse(earthquakeModel.lng.toString())}',
                             //textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: FitnessAppTheme.fontName,

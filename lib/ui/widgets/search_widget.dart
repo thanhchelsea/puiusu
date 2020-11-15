@@ -17,184 +17,19 @@ class _SearchWidgetState extends State<SearchWidget> {
   List<EarthquakeModel> list = new List<EarthquakeModel>();
   final ScrollController _scrollController = ScrollController();
 
-  // Widget getAppBarUI() {
-  //   return Container(
-  //     child: Container(
-  //       child: Padding(
-  //         padding: EdgeInsets.only(
-  //           top: MediaQuery.of(context).padding.top,
-  //           left: 8,
-  //           right: 8,
-  //         ),
-  //         child: Row(
-  //           children: <Widget>[
-  //             Expanded(
-  //               child: Padding(
-  //                 padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-  //                 child: Container(
-  //                   width: AppBar().preferredSize.height + 40,
-  //                   height: AppBar().preferredSize.height,
-  //                   alignment: Alignment.centerLeft,
-  //                   child: Container(
-  //                     decoration: BoxDecoration(
-  //                       color: HotelAppTheme.buildLightTheme().backgroundColor,
-  //                       borderRadius: const BorderRadius.all(
-  //                         Radius.circular(38.0),
-  //                       ),
-  //                       boxShadow: <BoxShadow>[
-  //                         BoxShadow(
-  //                           color: Colors.grey.withOpacity(0.2),
-  //                           offset: const Offset(0, 2),
-  //                           blurRadius: 8.0,
-  //                         ),
-  //                       ],
-  //                     ),
-  //                     child: Padding(
-  //                       padding: const EdgeInsets.only(
-  //                         left: 16,
-  //                         right: 16,
-  //                       ),
-  //                       child: Container(
-  //                         //color: Colors.blue,
-  //                         child: TextField(
-  //                           onChanged: (String txt) {},
-  //                           style: const TextStyle(
-  //                             fontSize: 18,
-  //                             color: Colors.yellow,
-  //                           ),
-  //                           cursorColor:
-  //                               HotelAppTheme.buildLightTheme().primaryColor,
-  //                           decoration: InputDecoration(
-  //                             //labelStyle: TextStyle(color: Colors.yellow),
-  //                             isDense: true,
-  //                             border: InputBorder.none,
-  //                             hintText:
-  //                                 '${Language.of(context).getText('search')}...',
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //             Container(
-  //               decoration: BoxDecoration(
-  //                 color: HotelAppTheme.buildLightTheme().primaryColor,
-  //                 borderRadius: const BorderRadius.all(
-  //                   Radius.circular(38.0),
-  //                 ),
-  //                 boxShadow: <BoxShadow>[
-  //                   BoxShadow(
-  //                     color: Colors.grey.withOpacity(0.4),
-  //                     offset: const Offset(0, 2),
-  //                     blurRadius: 8.0,
-  //                   ),
-  //                 ],
-  //               ),
-  //               child: Material(
-  //                 color: Colors.transparent,
-  //                 child: InkWell(
-  //                   borderRadius: const BorderRadius.all(
-  //                     Radius.circular(32.0),
-  //                   ),
-  //                   onTap: () {
-  //                     FocusScope.of(context).requestFocus(FocusNode());
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(16.0),
-  //                     child: Icon(
-  //                       Icons.search,
-  //                       size: 20,
-  //                       color: HotelAppTheme.buildLightTheme().backgroundColor,
-  //                     ),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
     list.add(new EarthquakeModel(
       address: 'Ha Noi',
       magnitude: 5.4,
-      lat: 21.93,
-      lng: 104.66,
-      time: "1 hour ago",
+      lat: "21.93",
+      lng: "104.66",
+      time: 32422,
       depth: 1000,
       riskLevel: 4,
     ));
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 3.2,
-      lat: 20.83,
-      lng: 104.65,
-      time: "2 hour ago",
-      depth: 1300,
-      riskLevel: 4,
-    ));
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 3.7,
-      lat: 22.575,
-      lng: 102.605,
-      time: "1 hour 20 min ago",
-      depth: 600,
-      riskLevel: 4,
-    ));
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 5.4,
-      lat: 21.93,
-      lng: 104.66,
-      time: "1 hour ago",
-      depth: 1000,
-      riskLevel: 4,
-    ));
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 3.2,
-      lat: 20.83,
-      lng: 104.65,
-      time: "2 hour ago",
-      depth: 1300,
-      riskLevel: 4,
-    ));
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 3.7,
-      lat: 22.575,
-      lng: 102.605,
-      time: "1 hour 20 min ago",
-      depth: 600,
-      riskLevel: 4,
-    ));
-    // return Scaffold(
-    //   body: Column(
-    //     mainAxisAlignment: MainAxisAlignment.start,
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       getAppBarUI(),
-    //       Expanded(
-    //         child: Container(
-    //           child: ListView.builder(
-    //             padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-    //             itemCount: list.length,
-    //             itemBuilder: (BuildContext context, int index) {
-    //               return EarthquakeItem(list[index]);
-    //             },
-    //           ),
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
+
 
     return Theme(
       data: HotelAppTheme.buildLightTheme(),

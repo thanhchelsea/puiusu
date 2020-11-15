@@ -141,7 +141,7 @@ class _MapState extends State<MapWidget>
         icon: await getClusterMarker(2, Colors.yellow, Colors.black, width),
         flat: true,
         markerId: MarkerId(id.toString()),
-        position: LatLng(earthquakeModel.lat, earthquakeModel.lng),
+        position: LatLng(double.parse(earthquakeModel.lat), double.parse(earthquakeModel.lng)),
         infoWindow: InfoWindow(
           title: earthquakeModel.address,
         ),
@@ -158,7 +158,7 @@ class _MapState extends State<MapWidget>
           Circle(
             strokeColor: Colors.green[900], //Color(0xff000000),
             circleId: CircleId(id.toString()),
-            center: LatLng(e.lat, e.lng),
+            center: LatLng(double.parse(e.lat), double.parse(e.lng)),
             radius: 10000,
             strokeWidth: 1,
             fillColor: Colors.green[600],
@@ -169,7 +169,7 @@ class _MapState extends State<MapWidget>
           Circle(
             strokeColor: Colors.green[600], //Color(0xff000000),
             circleId: CircleId(rad.toString()),
-            center: LatLng(e.lat, e.lng),
+            center: LatLng(double.parse(e.lat), double.parse(e.lng)),
             radius: rad * 20000,
             strokeWidth: 0,
             fillColor: Colors.green[600].withOpacity(0.2),

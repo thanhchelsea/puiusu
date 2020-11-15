@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_earthquake_network/blocs/app_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
+import 'package:flutter_earthquake_network/data/repository/earthquake_repositorry.dart';
 import 'blocs/blocs.dart';
 import 'blocs/blocs.dart';
 import 'blocs/blocs.dart';
@@ -14,6 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   String language = await Common.getTypeLanguage();
   String typeMap = await Common.getTypeMap();
+
+  EarthquakeRepository a=new EarthquakeRepository();
+  a.getListEarthquake();
   if (language == null) {
     Common.saveTypeLanguage("vi");
     language = "vi";
@@ -31,6 +36,9 @@ void main() async {
         providers: [
           BlocProvider<AppBloc>(
             create: (_) => AppBloc(language, typeMap),
+          ),
+          BlocProvider<HomeBloc>(
+            create: (_)=>HomeBloc(),
           ),
           BlocProvider<PhoneSetting>(
             create: (_)=>PhoneSetting(),
