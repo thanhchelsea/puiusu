@@ -28,7 +28,7 @@ class HomeBloc extends BaseBloc {
           yield ErrorState(data: "connect fail");
         }
       } catch (e) {
-        print(e.toString() + "sasaoisaiias");
+        print(e.toString() );
       }
     }
   }

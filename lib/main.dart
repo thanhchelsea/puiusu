@@ -18,7 +18,7 @@ void main() async {
   String language = await Common.getTypeLanguage();
   String typeMap = await Common.getTypeMap();
   EarthquakeRepository a=new EarthquakeRepository();
-  a.getListEarthquake();
+//  a.getListCity("Bắc");
   if (language == null) {
     Common.saveTypeLanguage("vi");
     language = "vi";
@@ -46,6 +46,9 @@ void main() async {
           BlocProvider<SOSBloc>(
             create: (_)=>SOSBloc(),
           ),
+          BlocProvider<SearchBloc>(
+            create: (_)=>SearchBloc(),
+          )
         ],
         child: MyApp.language(language: language),
       ),

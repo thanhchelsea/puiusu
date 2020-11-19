@@ -105,7 +105,7 @@ class _MapState extends State<MapWidget>
                     Navigator.pushNamed(
                       context,
                       Routes.earthquakeDetais,
-                      arguments: i,
+                      arguments: HomeBloc.listEarthquake[i],
                     );
                   },
                   consumeTapEvents: true,

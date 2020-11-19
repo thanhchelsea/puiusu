@@ -238,10 +238,9 @@ class _DetailsState extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context).settings.arguments.toString() + " 1111");
-    int indexEarthqyuake = ModalRoute.of(context).settings.arguments;
+    EarthquakeModel indexEarthqyuake = ModalRoute.of(context).settings.arguments;
     List<EarthquakeModel> list = new List<EarthquakeModel>();
-    list.add(HomeBloc.listEarthquake[indexEarthqyuake]);
+    list.add(indexEarthqyuake);
     List<Widget> ds = [
       Scaffold(
         body: Stack(
@@ -255,9 +254,9 @@ class _DetailsState extends State<Details> {
                     cameraPosition: CameraPosition(
                       target: LatLng(
                         double.parse(
-                            HomeBloc.listEarthquake[indexEarthqyuake].lat),
+                            indexEarthqyuake.lat),
                         double.parse(
-                            HomeBloc.listEarthquake[indexEarthqyuake].lng),
+                            indexEarthqyuake.lng),
                       ), // song gianh
                       zoom: 8,
                     ),
@@ -270,7 +269,7 @@ class _DetailsState extends State<Details> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Overview(HomeBloc.listEarthquake[indexEarthqyuake]),
+              child: Overview(indexEarthqyuake),
             ),
           ],
         ),
@@ -284,7 +283,7 @@ class _DetailsState extends State<Details> {
         child: Scaffold(
           body: SafeArea(
             child: BaseScreenMethod(
-              titleCity: HomeBloc.listEarthquake[indexEarthqyuake].address,
+              titleCity: indexEarthqyuake.address,
               //iconShare: true,
               iconMoreMenu: true,
               iconBack: true,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/data/model/model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
-import 'package:flutter_earthquake_network/ui/screens/screens.dart';
 import 'package:flutter_earthquake_network/ui/template/hotel_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
+import 'package:flutter_earthquake_network/utils/device.dart';
 
 import 'earthquake_item.dart';
 
@@ -13,81 +15,122 @@ class SearchWidget extends StatefulWidget {
 }
 
 class _SearchWidgetState extends State<SearchWidget> {
-  final List<String> listString = ['Ha Noi', 'TP.HCM', 'Cao Bằng', 'Lai Châu'];
   List<EarthquakeModel> list = new List<EarthquakeModel>();
   final ScrollController _scrollController = ScrollController();
-
-
+  TextEditingController _txtController=new TextEditingController();
+  bool _isShowSuggest = false;
   @override
   Widget build(BuildContext context) {
-    list.add(new EarthquakeModel(
-      address: 'Ha Noi',
-      magnitude: 5.4,
-      lat: "21.93",
-      lng: "104.66",
-      time: 32422,
-      depth: 1000,
-      riskLevel: 4,
-    ));
-
-
     return Theme(
       data: HotelAppTheme.buildLightTheme(),
-      child: Container(
-        child: Scaffold(
-          body: BaseScreenMethod(
-            iconBack: true,
-            title: 'search',
-            body: NestedScrollView(
-              controller: _scrollController,
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                        (BuildContext context, int index) {
-                      return Column(
-                        children: <Widget>[
-                          getSearchBarUI(),
-                          //getTimeDateUI(),
-                        ],
-                      );
-                    }, childCount: 1),
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: ContestTabHeader(
-                      getFilterBarUI(),
-                    ),
-                  ),
-                ];
-              },
-              body: Container(
-                color: HotelAppTheme.buildLightTheme().backgroundColor,
-                child: ListView.builder(
-                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return EarthquakeItem(list[index],index);
+      child: BlocConsumer<SearchBloc, BaseState>(
+        listener: (context, state) {
+        },
+        builder: (context, state) {
+          return Container(
+            child: Scaffold(
+              body: BaseScreenMethod(
+                iconBack: true,
+                title: 'search',
+                body: NestedScrollView(
+                  controller: _scrollController,
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (BuildContext context, int index) {
+                            return Column(
+                              children: <Widget>[
+                                getSearchBarUI(),
+                                state is LoadedState<List<CityModel>>
+                                    ? Container(
+                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8,),
+                                        width: DeviceUtil.getDeviceWidth(context),
+                                        child: Column(
+                                          children: List.generate(
+                                              state.data.length,
+                                              (index) {
+                                            return InkWell(
+                                              onTap: () {
+                                                _txtController.text="";
+                                                setState(() {
+                                                  _isShowSuggest=false;
+                                                //  BlocProvider.of<SearchBloc>(context).add(EmptyText());
+                                                  BlocProvider.of<SearchBloc>(context).add(SearchEarthquke(state.data[index].name));
+                                                });
+                                              },
+                                              child: Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    child: Icon(Icons.stars,color:  HotelAppTheme.buildLightTheme().primaryColor,),
+                                                  ),
+                                                  Container(
+                                                    padding: EdgeInsets.only(left: 20,top: 10,bottom: 10),
+                                                    child: Text(
+                                                      state.data[index].name,
+                                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                        ),
+                                  alignment: Alignment.centerLeft,
+                                      )
+                                    : Container(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                )
+                                //getTimeDateUI(),
+                              ],
+                            );
+                          },
+                          childCount: 1,
+                        ),
+                      ),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        floating: true,
+                        delegate: ContestTabHeader(
+                          _isShowSuggest == false
+                              ? getFilterBarUI()
+                              : Container(),
+                        ),
+                      ),
+                    ];
                   },
+                  body: state is LoadedState<List<EarthquakeModel>>
+                      ? Container(
+                          color:
+                              HotelAppTheme.buildLightTheme().backgroundColor,
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(
+                                left: 10, right: 10, bottom: 20),
+                            itemCount: state.data.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return EarthquakeItem(state.data[index], index);
+                            },
+                          ),
+                        )
+                      : Container(),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 
   Widget getSearchBarUI() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8),
       child: Row(
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+              padding: const EdgeInsets.only(right: 16, top: 8),
               child: Container(
                 decoration: BoxDecoration(
                   color: HotelAppTheme.buildLightTheme().backgroundColor,
@@ -105,7 +148,19 @@ class _SearchWidgetState extends State<SearchWidget> {
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 4, bottom: 4),
                   child: TextField(
-                    onChanged: (String txt) {},
+                    controller: _txtController,
+                    onTap: () {
+                      setState(() {
+                        _isShowSuggest = true;
+                      });
+                    },
+                    onChanged: (txt) {
+                     // BlocProvider.of<SearchBloc>(context).add(ChangText(txt));
+                      if(txt.isEmpty){
+                        print("null");
+                        BlocProvider.of<SearchBloc>(context).add(EmptyText());
+                      }
+                    },
                     style: const TextStyle(
                       fontSize: 18,
                     ),
@@ -139,6 +194,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   Radius.circular(32.0),
                 ),
                 onTap: () {
+                  BlocProvider.of<SearchBloc>(context).add(ChangText(_txtController.text));
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
                 child: Padding(

@@ -29,7 +29,7 @@ class EarthquakeItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             Routes.earthquakeDetais,
-            arguments: index,
+            arguments: earthquakeModel,
           );
         },
         child: Container(
@@ -287,80 +287,5 @@ class EarthquakeItem extends StatelessWidget {
       ),
     );
 
-    // return Card(
-    //   child: RaisedButton(
-    //     color: AppColors.white,
-    //     onPressed: () {
-    //       Navigator.pushNamed(
-    //         context,
-    //         Routes.earthquakeDetais,
-    //         arguments: earthquakeModel,
-    //       );
-    //     },
-    //     child: Column(
-    //       children: [
-    //         Container(
-    //           padding: EdgeInsets.all(10.0),
-    //           child: Row(
-    //             mainAxisAlignment: MainAxisAlignment.center,
-    //             crossAxisAlignment: CrossAxisAlignment.center,
-    //             children: [
-    //               Expanded(
-    //                 flex: 7,
-    //                 child: Container(
-    //                   //color: Colors.blue,
-    //                   alignment: Alignment.centerLeft,
-    //                   child: Text(
-    //                     earthquakeModel.address,
-    //                     style: TextStyle(
-    //                       fontSize: AppDimens.SIZE_18,
-    //                       fontWeight: FontWeight.bold,
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //               Expanded(
-    //                 flex: 2,
-    //                 child: Column(
-    //                   children: [
-    //                     Container(
-    //                       child: Text(
-    //                         '${earthquakeModel.magnitude}',
-    //                         style: TextStyle(color: AppColors.white),
-    //                       ),
-    //                       decoration: BoxDecoration(
-    //                         borderRadius: BorderRadius.all(
-    //                           Radius.circular(8),
-    //                         ),
-    //                         color: Colors.red,
-    //                       ),
-    //                       padding: EdgeInsets.only(
-    //                         top: 2,
-    //                         bottom: 2,
-    //                         left: 5,
-    //                         right: 5,
-    //                       ),
-    //                     ),
-    //                     SizedBox(
-    //                       height: 5,
-    //                     ),
-    //                     Text(
-    //                       earthquakeModel.time,
-    //                       maxLines: 1,
-    //                       style: TextStyle(
-    //                         fontSize: AppDimens.SIZE_12,
-    //                         fontWeight: FontWeight.w200,
-    //                       ),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ],
-    //           ),
-    //         ),
-    //       ],
-    //     ),
-    //   ),
-    // );
   }
 }
