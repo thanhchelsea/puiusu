@@ -24,7 +24,7 @@ class EarthquakeModel {
   String lng;
 
   @JsonKey(name: "timestamp", defaultValue: 0)
-  double time;
+  int time;
 
   @JsonKey(name: "depth", defaultValue: 0)
   double depth;

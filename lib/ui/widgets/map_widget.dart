@@ -5,11 +5,17 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/blocs.dart';
+import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
+import 'package:flutter_earthquake_network/localizations.dart';
+import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
+import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/circle.dart';
+import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../constants.dart';
+import '../../routes.dart';
 
 class MapWidget extends StatefulWidget {
   List<EarthquakeModel> listMaker = [];
@@ -21,19 +27,17 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapState extends State<MapWidget>
-    with
-        AutomaticKeepAliveClientMixin<MapWidget>,
-        SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin<MapWidget> {
   @override
   bool get wantKeepAlive => true;
-
   Completer<GoogleMapController> _controller = Completer();
   MapType mapType;
   String typeMap;
   Set<Marker> _markers = HashSet<Marker>();
   Set<Circle> _dscir = HashSet<Circle>();
-  static double initZoom = 5.5;
+  static double initZoom = 4.5;
   GoogleMap googleMap;
+  bool _isShowInfo = false;
 
   static CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(17.712952, 106.442713), // song gianh
@@ -81,100 +85,64 @@ class _MapState extends State<MapWidget>
     }
   }
 
-  Future<Uint8List> getBytesFromCanvas(int width, int height) async {
-    final PictureRecorder pictureRecorder = PictureRecorder();
-    final Canvas canvas = Canvas(pictureRecorder);
-    final Paint paint = Paint()..color = Colors.blue;
-    final Radius radius = Radius.circular(width / 2);
-
-    SpritePainter a = new SpritePainter();
-    a.paint(canvas, Size(100, 100));
-    final img = await pictureRecorder.endRecording().toImage(width, height);
-    final data = await img.toByteData(format: ImageByteFormat.png);
-    return data.buffer.asUint8List();
-  }
-
-  Future<BitmapDescriptor> getClusterMarker(
-    int clusterSize,
-    Color clusterColor,
-    Color textColor,
-    int width,
-  ) async {
-    final PictureRecorder pictureRecorder = PictureRecorder();
-    final Canvas canvas = Canvas(pictureRecorder);
-    final SpritePainter spritePainter = new SpritePainter();
-    final double radius = width / 2;
-
-    spritePainter.paint(
-      canvas,
-      Size(width.toDouble(), width.toDouble()),
-    );
-    final image = await pictureRecorder.endRecording().toImage(
-          radius.toInt() * 2,
-          radius.toInt() * 2,
-        );
-    final data = await image.toByteData(format: ImageByteFormat.png);
-    return BitmapDescriptor.fromBytes(data.buffer.asUint8List());
-  }
-
-  Future<Uint8List> initMarker() async {
+  initMarker() async {
+    _dscir.clear();
     if (widget.cameraPosition != null) {
       _kGooglePlex = widget.cameraPosition;
     }
 
     if (widget.listMaker != null) {
-      int a = 0;
-      print(widget.listMaker.length);
-      for (EarthquakeModel earthquakeModel in widget.listMaker) {
-        print("fd");
-        //_addMarker(a, earthquakeModel, _markers, 100);
-        _setCircles(a, earthquakeModel);
-        a++;
-      }
-    }
-  }
-
-  Future<void> _addMarker(
-      int id, EarthquakeModel earthquakeModel, Set marker, int width) async {
-    marker.add(
-      Marker(
-        icon: await getClusterMarker(2, Colors.yellow, Colors.black, width),
-        flat: true,
-        markerId: MarkerId(id.toString()),
-        position: LatLng(double.parse(earthquakeModel.lat), double.parse(earthquakeModel.lng)),
-        infoWindow: InfoWindow(
-          title: earthquakeModel.address,
-        ),
-        //anchor: Offset(0.5, 0.5),
-      ),
-    );
-  }
-
-  void _setCircles(id, EarthquakeModel e) {
-    print(id.toString() + " dfdfdfd");
-    for (double rad = 0; rad < 5; rad++) {
-      if (rad == 0) {
-        _dscir.add(
-          Circle(
-            strokeColor: Colors.green[900], //Color(0xff000000),
-            circleId: CircleId(id.toString()),
-            center: LatLng(double.parse(e.lat), double.parse(e.lng)),
-            radius: 10000,
-            strokeWidth: 1,
-            fillColor: Colors.green[600],
-          ),
-        );
-      } else {
-        _dscir.add(
-          Circle(
-            strokeColor: Colors.green[600], //Color(0xff000000),
-            circleId: CircleId(rad.toString()),
-            center: LatLng(double.parse(e.lat), double.parse(e.lng)),
-            radius: rad * 20000,
-            strokeWidth: 0,
-            fillColor: Colors.green[600].withOpacity(0.2),
-          ),
-        );
+    } else {
+      if (HomeBloc.listEarthquake != null) {
+        int count = 0;
+        for (int i = 0; i < HomeBloc.listEarthquake.length; i++) {
+          for (int rad = 0; rad < Common.circleCount( HomeBloc.listEarthquake[i].magnitude); rad++) {
+            if (rad == 0) {
+              _dscir.add(
+                Circle(
+                  onTap: () {
+                    List<EarthquakeModel> e = new List<EarthquakeModel>();
+                    Navigator.pushNamed(
+                      context,
+                      Routes.earthquakeDetais,
+                      arguments: i,
+                    );
+                  },
+                  consumeTapEvents: true,
+                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
+                  circleId: CircleId(_dscir.length.toString()),
+                  center: LatLng(
+                      double.parse((HomeBloc.listEarthquake[i].lat)),
+                      double.parse((HomeBloc.listEarthquake[i]
+                          .lng))), // id cua circle khong bao h trung nhau
+                  radius: 5000,
+                  strokeWidth: 1,
+                  fillColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                      HomeBloc.listEarthquake[i].time)),
+                ),
+              );
+            } else {
+              _dscir.add(
+                Circle(
+                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
+                  circleId: CircleId(_dscir.length.toString()),
+                  //circleId: CircleId((a + rad).toString()),
+                  center: LatLng(double.parse((HomeBloc.listEarthquake[i].lat)),
+                      double.parse((HomeBloc.listEarthquake[i].lng))),
+                  radius: double.parse((rad * 10000).toString()),
+                  strokeWidth: 0,
+                  fillColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                          HomeBloc.listEarthquake[i].time))
+                      .withOpacity(0.4),
+                ),
+              );
+            }
+          }
+          count++;
+        }
+        print(_dscir.length.toString() + " sizecircle");
       }
     }
   }
@@ -188,20 +156,59 @@ class _MapState extends State<MapWidget>
   void initState() {
     // TODO: implement initState
     super.initState();
-    // _controller1 = new AnimationController(
-    //   vsync: this,
-    // );
-    // _setCircles();
-    initMarker();
     getTypeMapShred();
+    if (widget.listMaker != null) {
+      for (int rad = 0; rad <Common.circleCount(widget.listMaker[0].magnitude); rad++) {
+        if (rad == 0) {
+          _dscir.add(
+            Circle(
+              consumeTapEvents: true,
+              strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                  widget.listMaker[0].time)), //Color(0xff000000),
+              circleId: CircleId(_dscir.length.toString()),
+              center: LatLng(
+                  double.parse((widget.listMaker[0].lat)),
+                  double.parse((widget.listMaker[0]
+                      .lng))), // id cua circle khong bao h trung nhau
+              radius: 5000,
+              strokeWidth: 1,
+              fillColor: AppTheme.monthColor(
+                  Common.readTimestampToMonth(widget.listMaker[0].time)),
+            ),
+          );
+        } else {
+          _dscir.add(
+            Circle(
+              strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+                  widget.listMaker[0].time)), //Color(0xff000000),
+              circleId: CircleId(_dscir.length.toString()),
+              //circleId: CircleId((a + rad).toString()),
+              center: LatLng(double.parse((widget.listMaker[0].lat)),
+                  double.parse((widget.listMaker[0].lng))),
+              radius: double.parse((rad * 10000).toString()),
+              strokeWidth: 0,
+              fillColor: AppTheme.monthColor(
+                      Common.readTimestampToMonth(widget.listMaker[0].time))
+                  .withOpacity(0.4),
+            ),
+          );
+        }
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    List<String> listTime = [
+      Language.of(context).getText("time.0"),
+      Language.of(context).getText("time.1"),
+      Language.of(context).getText("time.2"),
+      Language.of(context).getText("time.3"),
+      Language.of(context).getText("time.4"),
+    ];
     return Scaffold(
-      body: BlocListener<AppBloc, BaseState>(
+      body: BlocConsumer<AppBloc, BaseState>(
         listener: (context, state) {
-          print(state.toString() + " sdfsdfsdfs");
           if (state is ChangeMap) {
             switch (state.Map) {
               case "Normal":
@@ -231,53 +238,118 @@ class _MapState extends State<MapWidget>
             }
           }
         },
-        child: Stack(
-          children: <Widget>[
-            GoogleMap(
-              myLocationEnabled: true,
-              markers: _markers,
-              circles: _dscir != null
-                  ? _dscir
-                  : Set<Circle>.of([
-                      Circle(
-                        strokeColor: Colors.red,
-                        circleId: CircleId("fgf"),
-                        center: LatLng(
-                          21.93,
-                          104.66,
-                        ),
-                        radius: 10,
-                        strokeWidth: 2,
-                        fillColor: Color.fromRGBO(
-                          102,
-                          51,
-                          153,
-                          .5,
-                        ),
+        builder: (context, state) {
+          return Stack(
+            children: <Widget>[
+              Container(
+                child: BlocConsumer<HomeBloc, BaseState>(
+                  listener: (context, state) {
+                    if (state is LoadedState<List<EarthquakeModel>>) {
+                      initMarker();
+                    }
+                  },
+                  builder: (context, state) {
+                    return GoogleMap(
+                      myLocationEnabled: true,
+                      markers: _markers,
+                      mapType: mapType,
+                      circles: _dscir != null ? _dscir : Set<Circle>.of([]),
+                      initialCameraPosition: widget.cameraPosition != null
+                          ? widget.cameraPosition
+                          : _kGooglePlex,
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                    );
+                  },
+                ),
+              ),
+              Positioned(
+                top: 10,
+                left: 10,
+                child: InkWell(
+                  onTap: () {
+                    setState(() {
+                      _isShowInfo = !_isShowInfo;
+                    });
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      color: Colors.blue.withOpacity(0.6),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              _isShowInfo
+                  ? Positioned(
+                      top: 50,
+                      left: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    "Thời gian",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.white),
+                                  ),
+                                  margin: EdgeInsets.only(top: 10),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 10, right: 10),
+                                  width: 110,
+                                  height: 150,
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.only(top: 5),
+                                    itemCount: 5,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 16,
+                                              height: 25,
+                                              color: AppTheme.listColorMonth(
+                                                  index),
+                                            ),
+                                            Text(
+                                              listTime[index],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.blue.withOpacity(0.6),
+                              borderRadius:BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                        ],
                       ),
-                    ]),
-              mapType: mapType,
-              zoomGesturesEnabled: true,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              // onCameraMove:(CameraPosition cameraPosition) async {
-              //    var zoom = cameraPosition.zoom;
-              //    print('Zoom: $zoom');
-              //    Set<Marker> tempMarkers = HashSet<Marker>();
-              //    int a = 0;
-              //    for (EarthquakeModel earthquakeModel in widget.listMaker) {
-              //      await _addMarker(a, earthquakeModel, tempMarkers, (100 * (zoom/initZoom)).toInt());
-              //      a++;
-              //    }
-              //    setState(() {
-              //      _markers = tempMarkers;
-              //    });
-              // },
-            ),
-          ],
-        ),
+                    )
+                  : Container(),
+            ],
+          );
+        },
       ),
     );
   }

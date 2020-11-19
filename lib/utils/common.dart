@@ -1,9 +1,10 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:location/location.dart';
 import 'package:geocoder/geocoder.dart';
 import '../constants.dart';
-import '../data/model/phone_number.dart';
-import '../data/model/phone_number.dart';
+import 'package:intl/intl.dart';
 
 class Common {
   static Future saveTypeLanguage(String language) async {
@@ -98,5 +99,89 @@ class Common {
       }
     }
     return locate + "\n" + latlng;
+  }
+  static int readTimestampToMonth(int timestamp) {
+    var now = DateTime.now();
+    var format = DateFormat('yyyy-MM-dd ');
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var diff = now.difference(date);
+    int time=int.parse((diff.inDays/7).floor().toString()) ;
+    return time;
+
+  }
+ static String readTimestamp(int timestamp,BuildContext context) {
+    var now = DateTime.now();
+    var format = DateFormat('yyyy-MM-dd ');
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var diff = now.difference(date);
+    var time = '';
+
+    if (diff.inSeconds <= 0 || diff.inSeconds > 0 && diff.inMinutes == 0 || diff.inMinutes > 0 && diff.inHours == 0 || diff.inHours > 0 && diff.inDays == 0) {
+      time = format.format(date);
+    } else if (diff.inDays > 0 && diff.inDays < 7) {
+      if (diff.inDays == 1) {
+        time = diff.inDays.toString() +" "+ Language.of(context).getText("day_ago");
+      } else {
+        time = diff.inDays.toString() + " "+Language.of(context).getText("day_ago");
+      }
+    } else {
+      if (diff.inDays == 7) {
+        time = (diff.inDays / 7).floor().toString()+" " + Language.of(context).getText("week_ago");
+      } else {
+
+        time = (diff.inDays / 7).floor().toString()+" " +  Language.of(context).getText("week_ago");
+      }
+    }
+    return time;
+  }
+
+ static String _getDirection(double val, [bool isLongitude = false]) {
+    if(!isLongitude)
+      return val < 0 ? 'S' : 'N';
+    else
+      return val < 0 ? 'W' : 'E';
+  }
+  static String latitudeToHumanReadableString(double latitude) {
+    String direction = _getDirection(latitude);
+    latitude = latitude.abs();
+    int degrees = latitude.truncate();
+    latitude = (latitude - degrees) * 60;
+    int minutes = latitude.truncate();
+    int seconds = ((latitude - minutes) * 60).truncate();
+    return '$direction $degrees°$minutes\'$seconds\"';
+  }
+
+ static String longitudeToHumanReadableString(double longitude) {
+    String direction = _getDirection(longitude, true);
+    longitude = longitude.abs();
+    int degrees = longitude.truncate();
+    longitude = (longitude - degrees) * 60;
+    int minutes = longitude.truncate();
+    int seconds = ((longitude - minutes) * 60).truncate();
+    return '$direction $degrees°$minutes\'$seconds\"';
+  }
+
+  static int circleCount(double magntitude){
+    if(magntitude>=1&&magntitude<=4){
+      return 3;
+    }
+    else{
+      if(magntitude>4&&magntitude<=4.9){
+        return 4;
+      }
+      else{
+        if(magntitude>=5&&magntitude<=5.9){
+          return 5;
+        }
+        else{
+          if(magntitude>=6&&magntitude<=6.9){
+            return 6;
+          }
+          else{
+            return 7;
+          }
+        }
+      }
+    }
   }
 }

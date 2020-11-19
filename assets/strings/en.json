@@ -29,6 +29,7 @@
     "error_null_phone": "Empty Phone",
     "my_region": "My region",
     "notifications": "Notifications",
+    "notifications_setings": "Notification setting",
     "descriptionNoti": "Configuration how and when you will receive a notification ",
     "maps": "Maps",
     "descriptionMap": "Change the stype of the map that you want",
@@ -44,7 +45,11 @@
     "phone_number": "Phone number",
     "count_phone" : "Number must not exceed 5 contacts",
     "change_language": "Change language",
-    "des_change_language": "Change your language"
+    "des_change_language": "Change your language",
+    "select_language": "Select language",
+    "earthquake_magnitude": "Earthquake magnitude",
+    "more_than": "More than",
+    "radius_from_your_position": "Radius from your position"
   },
   "details": {
     "map": "Map",
@@ -75,5 +80,10 @@
     "10": "Phá hủy hoàn toàn khu dân cư. Xuất hiện khe nứt lớn trên mặt đất và hiện tượng sạt lở",
     "11": "Phá hủy các công trình xây dựng. Xuất hiện các khe nứt lớn trên mặt đất và nhiều nơi có hiện tượng trượt lở đất.",
     "12": "Thay đổi sâu sắc địa hình. Tất cả các công trình hư hại hoặc bị phá hủy."
+  },
+  "day_ago": "DAY AGO ",
+  "week_ago": "WEEK AGO",
+  "time": {
+    "0": "< 2 tuần","1": " 1 tháng","2": "2 tháng","3": " 3 tháng","4": "> 6 tháng"
   }
 }

@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/res/dimens.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/map_widget.dart';
 import 'package:flutter_earthquake_network/ui/widgets/report_screen.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
+import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:flutter_earthquake_network/utils/hex_color.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -74,7 +76,7 @@ class _DetailsState extends State<Details> {
                     Expanded(
                       child: _itemDetail(
                         "details.time",
-                        earthquakeModel.time.toString(),
+                        Common.readTimestamp(earthquakeModel.time, context),
                         Icon(
                           Icons.timer,
                           size: AppDimens.SIZE_30,
@@ -101,7 +103,11 @@ class _DetailsState extends State<Details> {
                       flex: 1,
                       child: _itemDetail(
                         'details.lat_lng',
-                        '${earthquakeModel.lat}, ${earthquakeModel.lng}',
+                        Common.latitudeToHumanReadableString(
+                                double.parse(earthquakeModel.lat)) +
+                            "\n" +
+                            Common.longitudeToHumanReadableString(
+                                double.parse(earthquakeModel.lng)),
                         Icon(
                           Icons.golf_course,
                           size: AppDimens.SIZE_30,
@@ -198,8 +204,8 @@ class _DetailsState extends State<Details> {
                     padding: const EdgeInsets.only(
                         top: 8, left: 8, right: 8, bottom: 8),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
                           unit != null
@@ -232,9 +238,10 @@ class _DetailsState extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
-    EarthquakeModel earthquakeModel = ModalRoute.of(context).settings.arguments;
+    print(ModalRoute.of(context).settings.arguments.toString() + " 1111");
+    int indexEarthqyuake = ModalRoute.of(context).settings.arguments;
     List<EarthquakeModel> list = new List<EarthquakeModel>();
-    list.add(earthquakeModel);
+    list.add(HomeBloc.listEarthquake[indexEarthqyuake]);
     List<Widget> ds = [
       Scaffold(
         body: Stack(
@@ -247,8 +254,10 @@ class _DetailsState extends State<Details> {
                     listMaker: list,
                     cameraPosition: CameraPosition(
                       target: LatLng(
-                       double.parse( earthquakeModel.lat),
-                        double.parse(earthquakeModel.lng),
+                        double.parse(
+                            HomeBloc.listEarthquake[indexEarthqyuake].lat),
+                        double.parse(
+                            HomeBloc.listEarthquake[indexEarthqyuake].lng),
                       ), // song gianh
                       zoom: 8,
                     ),
@@ -261,7 +270,7 @@ class _DetailsState extends State<Details> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Overview(earthquakeModel),
+              child: Overview(HomeBloc.listEarthquake[indexEarthqyuake]),
             ),
           ],
         ),
@@ -275,7 +284,7 @@ class _DetailsState extends State<Details> {
         child: Scaffold(
           body: SafeArea(
             child: BaseScreenMethod(
-              titleCity: earthquakeModel.address,
+              titleCity: HomeBloc.listEarthquake[indexEarthqyuake].address,
               //iconShare: true,
               iconMoreMenu: true,
               iconBack: true,
@@ -288,7 +297,6 @@ class _DetailsState extends State<Details> {
                     style: TextStyle(
                       fontSize: 20,
                     ),
-
                   ),
                 ),
                 pageBuilder: (context, index) => Center(child: ds[index]),

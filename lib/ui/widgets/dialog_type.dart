@@ -31,11 +31,15 @@ class _DialogState extends State<DialogType> {
 
   @override
   Widget build(BuildContext context) {
-    print("111");
-    //  getType() ;
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
       title: new Text(Language.of(context).getText("settings.map_type")),
       content: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20))
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min, // dua coloum ve min height
           children: List.generate(widget.ds.length, (index) {

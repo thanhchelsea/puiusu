@@ -8,14 +8,16 @@ import 'package:flutter_earthquake_network/res/colors.dart';
 import 'package:flutter_earthquake_network/res/dimens.dart';
 import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/template/hotel_app_theme.dart';
+import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:flutter_earthquake_network/utils/device.dart';
 
 import '../../routes.dart';
 
 class EarthquakeItem extends StatelessWidget {
   EarthquakeModel earthquakeModel;
+  int index;
 
-  EarthquakeItem(this.earthquakeModel);
+  EarthquakeItem(this.earthquakeModel,this.index);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class EarthquakeItem extends StatelessWidget {
           Navigator.pushNamed(
             context,
             Routes.earthquakeDetais,
-            arguments: earthquakeModel,
+            arguments: index,
           );
         },
         child: Container(
@@ -114,7 +116,7 @@ class EarthquakeItem extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 4.0),
                                   child: Text(
-                                    earthquakeModel.time.toString(),
+                                   Common.readTimestamp(earthquakeModel.time,context),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: FitnessAppTheme.fontName,
@@ -166,8 +168,11 @@ class EarthquakeItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '${double.parse(earthquakeModel.lat.toString())}, '
-                            '${double.parse(earthquakeModel.lng.toString())}',
+                            Common.latitudeToHumanReadableString(
+                                double.parse(earthquakeModel.lat)) +
+                                "\n" +
+                                Common.longitudeToHumanReadableString(
+                                    double.parse(earthquakeModel.lng)),
                             //textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: FitnessAppTheme.fontName,

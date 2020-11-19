@@ -19,6 +19,7 @@ class AppTheme {
   static const Color spacer = Color(0xFFF2F2F2);
   static const String fontName = 'WorkSans';
   static const Color nearlyDarkBlue = Color(0xFF2633C5);
+  static const Color nearlyDarkBrown = Color(0xFFf76d16);
   static const Color nearlyDarkRed = Color(0xFFa1051D);
 
   static const TextTheme textTheme = TextTheme(
@@ -142,7 +143,7 @@ class AppTheme {
     }
   }
 
-  static Color levelColor(int level) {
+  static Color levelColor(int level) {//report
     switch (level) {
       case 0:
         return Colors.pinkAccent;
@@ -168,6 +169,40 @@ class AppTheme {
         return Colors.blueGrey;
       case 11:
         return Colors.brown;
+    }
+  }
+
+  static Color monthColor(int count) {
+    if (count <= 2) {
+      return Color(0xffff1a1a); // 2tuan
+    } else {
+      if (count > 2 && count <= 4) {
+        return Color(0xffe68a00); //1 thang
+      } else {
+        if (count > 4 && count <= 8) {
+          return Color(0xffffff00); //2 thang
+        } else {
+          if (count > 8 && count <= 12) {
+            return Color(0xfff5f5f0); //3 thang
+          } else
+            return Color(0xffc2c2a3); // 6 thang
+        }
+      }
+    }
+  }
+
+  static Color listColorMonth(int index) {
+    switch (index) {
+      case 0:
+        return Color(0xffff1a1a);
+      case 1:
+        return Color(0xffe68a00);
+      case 2:
+        return Color(0xffffff00);
+      case 3:
+        return Color(0xfff5f5f0);
+      case 4:
+        return Color(0xffc2c2a3);
     }
   }
 }

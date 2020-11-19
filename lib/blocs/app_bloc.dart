@@ -36,7 +36,7 @@ class changeTypeMap extends BaseEvent {
 
 class ChangeMap extends BaseState {
   String Map;
-  ChangeMap(this.Map);
+  ChangeMap(this.Map,);
   @override
   List<Object> get props => [Map];
 }

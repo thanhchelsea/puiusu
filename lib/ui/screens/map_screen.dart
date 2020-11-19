@@ -25,48 +25,53 @@ class MapScreen extends StatelessWidget {
     final double tempHeight = MediaQuery.of(context).size.height -
         (MediaQuery.of(context).size.width / 1.2) +
         36;
-    return BlocBuilder<HomeBloc, BaseState>(
-      builder: (context, state) {
-        return BaseScreenMethod(
-          title: 'home.map',
-          iconSearch: true,
-          iconMoreMenu: true,
-          body: Stack(
+    return BaseScreenMethod(
+      title: 'home.map',
+      iconSearch: true,
+      iconMoreMenu: true,
+      body: Stack(
+        children: [
+          Column(
             children: [
-              Column(
-                children: [
-                  AspectRatio(
-                    aspectRatio: 1.3,
-                    child: MapWidget(
-                      listMaker: list,
+              AspectRatio(
+                aspectRatio: 1.3,
+                child: BlocConsumer<HomeBloc, BaseState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    return MapWidget(
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            top: (MediaQuery.of(context).size.width / 1.2) - 36,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: DesignCourseAppTheme.nearlyWhite,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20.0),
+                  topRight: Radius.circular(20.0),
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                    offset: const Offset(
+                      1.1,
+                      1.1,
                     ),
+                    blurRadius: 10.0,
                   ),
                 ],
               ),
-              Positioned(
-                top: (MediaQuery.of(context).size.width / 1.2) - 36,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: DesignCourseAppTheme.nearlyWhite,
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20.0),
-                      topRight: Radius.circular(20.0),
-                    ),
-                    boxShadow: <BoxShadow>[
-                      BoxShadow(
-                        color: DesignCourseAppTheme.grey.withOpacity(0.2),
-                        offset: const Offset(
-                          1.1,
-                          1.1,
-                        ),
-                        blurRadius: 10.0,
-                      ),
-                    ],
-                  ),
-                  child: Container(
+              child: BlocConsumer<HomeBloc, BaseState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return Container(
                     constraints: BoxConstraints(
                       minHeight: infoHeight,
                       maxHeight:
@@ -90,20 +95,20 @@ class MapScreen extends StatelessWidget {
                                         (BuildContext context, int index) {
                                       if (HomeBloc.listEarthquake.isNotEmpty) {
                                         return EarthquakeItem(
-                                            HomeBloc.listEarthquake[index]);
+                                             HomeBloc.listEarthquake[index],index);
                                       } else
                                         return Text("connect server fail");
                                     },
                                   )
                                 : Text("f"),
                           ),
-                  ),
-                ),
+                  );
+                },
               ),
-            ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

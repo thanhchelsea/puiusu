@@ -69,7 +69,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   padding: EdgeInsets.only(left: 10, right: 10, bottom: 20),
                   itemCount: list.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return EarthquakeItem(list[index]);
+                    return EarthquakeItem(list[index],index);
                   },
                 ),
               ),

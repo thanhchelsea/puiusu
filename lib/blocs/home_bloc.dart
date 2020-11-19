@@ -19,12 +19,10 @@ class HomeBloc extends BaseBloc {
   @override
   Stream<BaseState> mapEventToState(BaseEvent event) async* {
     if (event is Loading) {
-      print("fggf");
       yield LoadingState();
       try {
         listEarthquake = await earthquakeRepository.getListEarthquake();
         if (listEarthquake != null) {
-          print(listEarthquake.length.toString() + " dong dat");
           yield LoadedState(data: listEarthquake);
         } else {
           yield ErrorState(data: "connect fail");

@@ -29,7 +29,7 @@ EarthquakeModel _$EarthquakeModelFromJson(Map<String, dynamic> json) {
     magnitude: (json['magnitude'] as num)?.toDouble() ?? 0,
     lat: json['lat'] as String ?? 0,
     lng: json['lng'] as String ?? 0,
-    time: (json['timestamp'] as num)?.toDouble() ?? 0,
+    time: json['timestamp'] as int ?? 0,
     depth: (json['depth'] as num)?.toDouble() ?? 0,
     riskLevel: json['riskLevel'] as int ?? 0,
   );
