@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
+import 'package:flutter_earthquake_network/res/images.dart';
 import 'package:flutter_earthquake_network/ui/widgets/base_screen_method.dart';
 import 'package:flutter_earthquake_network/utils/common.dart';
 
@@ -25,14 +26,14 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
             "Vietnam",
             CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage("assets/images/vietnam.png"),
+              backgroundImage: AssetImage(AppImages.ICON_LOGO_VIETNAM),
             ),
             "vi",
             language == "vi" ? true : false),
         new Item(
             "English",
             CircleAvatar(
-              backgroundImage: AssetImage("assets/images/england.png"),
+              backgroundImage: AssetImage(AppImages.ICON_LOGO_ENGLAND),
             ),
             "en",
             language == "en" ? true : false),

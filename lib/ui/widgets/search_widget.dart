@@ -17,15 +17,22 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   List<EarthquakeModel> list = new List<EarthquakeModel>();
   final ScrollController _scrollController = ScrollController();
-  TextEditingController _txtController=new TextEditingController();
+  TextEditingController _txtController = new TextEditingController();
   bool _isShowSuggest = false;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+
     return Theme(
       data: HotelAppTheme.buildLightTheme(),
       child: BlocConsumer<SearchBloc, BaseState>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           return Container(
             child: Scaffold(
@@ -45,31 +52,51 @@ class _SearchWidgetState extends State<SearchWidget> {
                                 getSearchBarUI(),
                                 state is LoadedState<List<CityModel>>
                                     ? Container(
-                                  padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8,),
-                                        width: DeviceUtil.getDeviceWidth(context),
+                                        //  color: HotelAppTheme.buildLightTheme().backgroundColor,
+                                        padding: const EdgeInsets.only(
+                                          left: 16,
+                                          right: 16,
+                                          top: 8,
+                                          bottom: 8,
+                                        ),
+                                        width:
+                                            DeviceUtil.getDeviceWidth(context),
                                         child: Column(
                                           children: List.generate(
-                                              state.data.length,
-                                              (index) {
+                                              state.data.length, (index) {
                                             return InkWell(
                                               onTap: () {
-                                                _txtController.text="";
+                                                _txtController.text = "";
                                                 setState(() {
-                                                  _isShowSuggest=false;
-                                                //  BlocProvider.of<SearchBloc>(context).add(EmptyText());
-                                                  BlocProvider.of<SearchBloc>(context).add(SearchEarthquke(state.data[index].name));
+                                                  _isShowSuggest = false;
+                                                  //  BlocProvider.of<SearchBloc>(context).add(EmptyText());
+                                                  BlocProvider.of<SearchBloc>(
+                                                          context)
+                                                      .add(SearchEarthquke(state
+                                                          .data[index].name));
                                                 });
                                               },
                                               child: Row(
                                                 children: <Widget>[
                                                   Container(
-                                                    child: Icon(Icons.stars,color:  HotelAppTheme.buildLightTheme().primaryColor,),
+                                                    child: Icon(
+                                                      Icons.stars,
+                                                      color: HotelAppTheme
+                                                              .buildLightTheme()
+                                                          .primaryColor,
+                                                    ),
                                                   ),
                                                   Container(
-                                                    padding: EdgeInsets.only(left: 20,top: 10,bottom: 10),
+                                                    padding: EdgeInsets.only(
+                                                        left: 20,
+                                                        top: 10,
+                                                        bottom: 10),
                                                     child: Text(
                                                       state.data[index].name,
-                                                      style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                                     ),
                                                   ),
                                                 ],
@@ -77,11 +104,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                                             );
                                           }),
                                         ),
-                                  alignment: Alignment.centerLeft,
+                                        alignment: Alignment.centerLeft,
                                       )
                                     : Container(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                )
+                                        padding: EdgeInsets.only(bottom: 10),
+                                      )
                                 //getTimeDateUI(),
                               ],
                             );
@@ -113,7 +140,14 @@ class _SearchWidgetState extends State<SearchWidget> {
                             },
                           ),
                         )
-                      : Container(),
+                      : state is ErrorState<String>
+                          ? Container(
+                              padding: EdgeInsets.only(top: 20),
+                              alignment: Alignment.topCenter,
+                              child: Text(
+                                  Language.of(context).getText(state.data)),
+                            )
+                          : Container(),
                 ),
               ),
             ),
@@ -155,8 +189,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                       });
                     },
                     onChanged: (txt) {
-                     // BlocProvider.of<SearchBloc>(context).add(ChangText(txt));
-                      if(txt.isEmpty){
+                      // BlocProvider.of<SearchBloc>(context).add(ChangText(txt));
+                      if (txt.isEmpty) {
                         print("null");
                         BlocProvider.of<SearchBloc>(context).add(EmptyText());
                       }
@@ -194,7 +228,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                   Radius.circular(32.0),
                 ),
                 onTap: () {
-                  BlocProvider.of<SearchBloc>(context).add(ChangText(_txtController.text));
+                  BlocProvider.of<SearchBloc>(context)
+                      .add(ChangText(_txtController.text));
                   FocusScope.of(context).requestFocus(FocusNode());
                 },
                 child: Padding(

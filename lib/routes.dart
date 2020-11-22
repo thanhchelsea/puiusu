@@ -11,6 +11,7 @@ import 'package:flutter_earthquake_network/ui/template/navigation_home_screen.da
 class Routes {
   Routes._();
   //screen name
+  static const String splashScreen="/splash_screen";
   static const String home = "/homeScreen";
   static const String searchScreen = "/searchScreen";
   static const String settingScreen = "/settings";
@@ -30,6 +31,7 @@ class Routes {
   static String initScreen() => home;
   //init screen name
   static final routes = <String, WidgetBuilder>{
+    splashScreen:(context)=>SplashScreen(),
     home: (context) => NavigationHomeScreen(),//Home(),
     searchScreen: (context) => SearchScreen(),
     settingScreen: (context) => SettingScreens(),

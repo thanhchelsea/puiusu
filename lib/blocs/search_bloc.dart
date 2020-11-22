@@ -37,17 +37,16 @@ class SearchBloc extends BaseBloc {
       }
     }
     if (event is EmptyText) {
-      print("null nhe bro");
       yield InitState();
     }
     if(event is SearchEarthquke){
       yield LoadingState();
       ListCityEarthquake=await earthquakeRepository.getEarthquakeOnCity(event.city);
-      if (ListCityEarthquake != null) {
-        print(ListCityEarthquake[0].lng);
+      if (ListCityEarthquake.isNotEmpty) {
+//        print(ListCityEarthquake.length);
         yield LoadedState(data: ListCityEarthquake);
       } else {
-        yield ErrorState(data: "connect fail");
+        yield ErrorState(data: "search_null");
       }
     }
   }

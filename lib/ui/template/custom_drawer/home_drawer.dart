@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
+import 'package:flutter_earthquake_network/res/images.dart';
 
 import '../app_theme.dart';
 
@@ -71,10 +72,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.only(top: 40.0),
+          Center(
+//            width: double.infinity,
+//            padding: const EdgeInsets.only(top: 40.0),
             child: Container(
+              margin: EdgeInsets.only(top: 40),
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,16 +110,20 @@ class _HomeDrawerState extends State<HomeDrawer> {
                               boxShadow: <BoxShadow>[
                                 BoxShadow(
                                   color: AppTheme.grey.withOpacity(0.6),
-                                  offset: const Offset(2.0, 4.0),
+                               //   offset: const Offset(2.0, 4.0),
                                   blurRadius: 8,
                                 ),
                               ],
                             ),
-                            child: ClipRRect(
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(60.0),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: Center(
+                                child: Image(
+                                  width: 100,height: 100,
+                                    fit: BoxFit.cover,
+                                    image: AssetImage(AppImages.LOGO_VIETNAM)
+                                ),
                               ),
-                              //child: Image.asset('assets/images/userImage.png'),
                             ),
                           ),
                         ),

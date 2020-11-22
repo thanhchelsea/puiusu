@@ -6,10 +6,13 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 class EarthquakeRepository {
+  int month=2592000;// 1 thang co 2592000 s
+  int nowDay=int.parse((new DateTime.now().millisecondsSinceEpoch/1000).floor().toString());
+  // query cac tran dong dat trong vong 1 thang
   EarthquakeRepository();
   Future<List<EarthquakeModel>> getListEarthquake() async {
-    var response = await http.get(ApiConstant.LIST_EARTHQUAKE);
-    print(ApiConstant.LIST_EARTHQUAKE);
+    var response = await http.get(ApiConstant.LIST_EARTHQUAKE+ApiConstant.QUERYl_LIST(nowDay-month, nowDay));
+    print(ApiConstant.LIST_EARTHQUAKE+ApiConstant.QUERYl_LIST(nowDay-month, nowDay));
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       List<EarthquakeModel> list = (jsonResponse as List)

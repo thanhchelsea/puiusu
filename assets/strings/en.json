@@ -85,5 +85,6 @@
   "week_ago": "WEEK AGO",
   "time": {
     "0": "< 2 tuần","1": " 1 tháng","2": "2 tháng","3": " 3 tháng","4": "> 6 tháng"
-  }
+  },
+  "search_null": "Result is Empty"
 }
