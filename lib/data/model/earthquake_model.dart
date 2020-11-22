@@ -11,6 +11,10 @@ class EarthquakeListModel {
 
 @JsonSerializable(explicitToJson: true)
 class EarthquakeModel {
+
+  @JsonKey(name: "id", defaultValue: 0)
+  int id;
+
   @JsonKey(name: "region", defaultValue: "")
   String address;
 
@@ -32,14 +36,9 @@ class EarthquakeModel {
   @JsonKey(name: "riskLevel", defaultValue: 0)
   int riskLevel;
 
-  EarthquakeModel(
-      {this.address,
-      this.magnitude,
-      this.lat,
-      this.lng,
-      this.time,
-      this.depth,
-      this.riskLevel});
+
+  EarthquakeModel({this.id, this.address, this.magnitude, this.lat, this.lng,
+      this.time, this.depth, this.riskLevel});
 
   static EarthquakeModel fromJson(Map<String, dynamic> json) =>
       _$EarthquakeModelFromJson(json);

@@ -293,9 +293,6 @@ class DialogSOSState extends State<DialogSOS> with TickerProviderStateMixin {
       body: Container(
         child: BlocConsumer<SOSBloc, BaseState>(
           listener: (context, state) {
-            if (state is LoadedState) {
-              print("loading");
-            }
             if (state is ErrorState<String>) {
               _scaffoldKey.currentState.showSnackBar(SnackBar(
                 content: Text(

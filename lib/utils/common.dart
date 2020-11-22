@@ -56,11 +56,10 @@ class Common {
     return messageSOS;
   }
 
-  static Future<Coordinates> getCoordinates() async {
-    LocationData myLocation;
-    Coordinates coordinates =
-        new Coordinates(myLocation.latitude, myLocation.longitude);
-    return coordinates;
+  static Future<LocationData> getCoordinates() async {
+    LocationData myLocation; Location location = new Location();
+    myLocation = await location.getLocation();
+    return myLocation;
   }
 
   static Future<String> getUserLocation() async {

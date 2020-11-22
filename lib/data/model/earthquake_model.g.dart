@@ -25,6 +25,7 @@ Map<String, dynamic> _$EarthquakeListModelToJson(
 
 EarthquakeModel _$EarthquakeModelFromJson(Map<String, dynamic> json) {
   return EarthquakeModel(
+    id: json['id'] as int ?? 0,
     address: json['region'] as String ?? '',
     magnitude: (json['magnitude'] as num)?.toDouble() ?? 0,
     lat: json['lat'] as String ?? 0,
@@ -37,6 +38,7 @@ EarthquakeModel _$EarthquakeModelFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$EarthquakeModelToJson(EarthquakeModel instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'region': instance.address,
       'magnitude': instance.magnitude,
       'lat': instance.lat,

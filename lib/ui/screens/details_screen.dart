@@ -274,7 +274,7 @@ class _DetailsState extends State<Details> {
           ],
         ),
       ),
-      ReportScreen(),
+      ReportScreen(indexEarthqyuake),
     ];
     return DefaultTabController(
       length: 2,
