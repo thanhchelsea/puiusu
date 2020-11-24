@@ -1,6 +1,6 @@
 class ApiConstant {
   //define all api constant like: host, path, ...
-  static final apiHost = "http://192.168.102.101:3000";
+  static final apiHost = "http://192.168.1.18:3000";
   static final String LIST_EARTHQUAKE = "${apiHost}/earthquake?_sort=timestamp&_order=desc&";
   static String QUERYl_LIST(int startTime,int endTime){
     return "timestamp_gte=${startTime}&timestamp_lte=${endTime}";

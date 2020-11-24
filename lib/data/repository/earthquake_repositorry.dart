@@ -10,6 +10,7 @@ import 'package:location/location.dart';
 import 'package:platform_device_id/platform_device_id.dart';
 
 class EarthquakeRepository {
+  int week=604800;// 1 tuan co 604800 giay
   int month = 2592000; // 1 thang co 2592000 s
   int nowDay = int.parse(
       (new DateTime.now().millisecondsSinceEpoch / 1000).floor().toString());
@@ -31,6 +32,21 @@ class EarthquakeRepository {
     }
   }
 
+  Future<List<EarthquakeModel>> getLatestListEarthquake() async {
+    var response = await http.get(ApiConstant.LIST_EARTHQUAKE +
+        ApiConstant.QUERYl_LIST(nowDay - week, nowDay));
+    print(ApiConstant.LIST_EARTHQUAKE +
+        ApiConstant.QUERYl_LIST(nowDay - month, nowDay));
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      List<EarthquakeModel> list = (jsonResponse as List)
+          .map((e) => EarthquakeModel.fromJson(e))
+          .toList();
+      return list;
+    } else {
+      print(":(");
+    }
+  }
   Future<List<CityModel>> getListCity(String city) async {
     var response = await http.get(ApiConstant.LIST_CITY + city);
     print(ApiConstant.LIST_CITY);

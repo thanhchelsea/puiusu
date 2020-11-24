@@ -5,7 +5,6 @@ import 'package:flutter_earthquake_network/ui/template/design_course_app_theme.d
 import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
 import 'package:flutter_earthquake_network/utils/device.dart';
-import 'package:flutter_earthquake_network/utils/hex_color.dart';
 
 class AlertScreen extends StatelessWidget {
   Widget itemAlert(
@@ -89,17 +88,7 @@ class AlertScreen extends StatelessWidget {
     return Scaffold(
       body: BaseScreenMethod(
         title: "home.alert",
-        body: ListView.builder(
-          padding: EdgeInsets.only( right: 0),
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return Container(
-              padding: EdgeInsets.all(10),
-              color:index==0||index==1||index==3 ? HexColor('#e6faff'):null,
-              child: itemAlert(5.4, "Cao bằng", "3 giờ trước", context),
-            );
-          },
-        ),
+        body: MessagingWidget(),
       ),
     );
   }

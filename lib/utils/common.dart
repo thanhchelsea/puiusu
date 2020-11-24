@@ -110,7 +110,7 @@ class Common {
   }
  static String readTimestamp(int timestamp,BuildContext context) {
     var now = DateTime.now();
-    var format = DateFormat('yyyy-MM-dd ');
+    var format = DateFormat('dd-MM-yyyy ');
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     var diff = now.difference(date);
     var time = '';
