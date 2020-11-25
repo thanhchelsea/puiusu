@@ -11,44 +11,54 @@ class SettingScreens extends StatelessWidget {
   SettingScreens({this.fromMenu});
 
   Widget itemSetting(String title, String description, BuildContext context,
-      String jumpScreen) {
+      String jumpScreen,Icon icon) {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, jumpScreen);
       },
-      child: Column(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            width: DeviceUtil.getDeviceWidth(context),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: AppDimens.SIZE_15,
-                left: AppDimens.SIZE_15,
-                bottom: AppDimens.SIZE_30,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    Language.of(context).getText(title),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: AppDimens.SIZE_20,
-                    ),
+            padding: EdgeInsets.all(10),
+            child: icon,
+          ),
+          Column(
+            children: <Widget>[
+              Container(
+               // width: DeviceUtil.getDeviceWidth(context),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                  //  top: AppDimens.SIZE_15,
+                    left: AppDimens.SIZE_15,
+                    bottom: AppDimens.SIZE_30,
                   ),
-                  Text(
-                    description != null
-                        ? Language.of(context).getText(description)
-                        : "",
-                    style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: AppDimens.SIZE_15,
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        Language.of(context).getText(title),
+                        maxLines: 2,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: AppDimens.SIZE_20,
+                        ),
+                      ),
+                      Text(
+                        description != null
+                            ? Language.of(context).getText(description)
+                            : "",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: AppDimens.SIZE_15,
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
@@ -67,20 +77,13 @@ class SettingScreens extends StatelessWidget {
             margin: EdgeInsets.only(top: AppDimens.SIZE_10),
             child: Column(
               children: <Widget>[
-                Container(
-                  child: itemSetting(
-                    "settings.notifications",
-                    "settings.descriptionNoti",
-                    context,
-                    Routes.notificationSetting,
-                  ),
-                ),
+
                 Container(
                   child: itemSetting(
                     "settings.maps",
                     "settings.descriptionMap",
                     context,
-                    Routes.mapSettings,
+                    Routes.mapSettings,   Icon(Icons.map,color: Colors.green,)
                   ),
                 ),
                 Container(
@@ -88,7 +91,7 @@ class SettingScreens extends StatelessWidget {
                     "settings.sos",
                     "settings.descriptionSOS",
                     context,
-                    Routes.sosSettingsScreen,
+                    Routes.sosSettingsScreen,   Icon(Icons.contact_mail,color:Colors.amber)
                   ),
                 ),
                 Container(
@@ -96,7 +99,7 @@ class SettingScreens extends StatelessWidget {
                     "settings.change_language",
                     "settings.des_change_language",
                     context,
-                    Routes.changeLanguage,
+                    Routes.changeLanguage,   Icon(Icons.language,color:Colors.blue)
                   ),
                 ),
               ],

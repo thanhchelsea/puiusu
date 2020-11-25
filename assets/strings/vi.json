@@ -87,5 +87,26 @@
     "0": "< 2 tuần","1": " 1 tháng","2": "2 tháng","3": " 3 tháng","4": "> 6 tháng"
   },
   "search_null": "Không tim thấy kết quả nào",
-  "report_success": "Gửi báo cáo thành công"
+  "report_success": "Gửi báo cáo thành công",
+  "attack": "Ứng phó",
+  "safety": "Đối phó",
+  "prepare": "Chuẩn bị",
+  "recover": "Sau động đất",
+  "bp1": {
+    "title": "Nếu đang ở trong một tòa nhà có kết cấu vững chắc",
+    "content": " ngay lập tức chui xuống gầm bàn hay gầm giường để tránh các vật rơi xuống đầu và nếu nhà sập vẫn có không khí để thở. Nếu không có gầm bàn thì chạy đến góc phòng mà đứng, tránh xã các cửa sổ và cửa ra vào, không chạy ra khỏi nhà khi có chấn động do động đất gây ra. Sau khi chấn động ngừng mới rời khỏi phòng, nhà nếu cần. Luôn lấy tay ôm lấy mặt, đầu, tránh xa cửa kính, gương, hay vật gì có thể đổ vào người."
+  },
+  "bp2": {
+    "title": "Nếu đang ở bên ngoài hãy chạy ngay tới vùng đất trống",
+    "content": "Tránh xa các tòa nhà, đường dây dẫn điện, đường ống dẫn nhiên liệu, tường và các công trình khác có khả năng bị đổ hoặc sụp xuống. Bạn nên tìm chỗ trống để đứng an toàn."
+  },
+  "bp3": {
+    "title": "Nếu đang ở trên một ngọn núi hoặc ở gần một quả đồi nghiêng dốc",
+    "content": "Hảy tránh xa chỗ dốc đứng vì chỗ đó có thể bị lở đất"
+  },
+  "bp4": {
+    "title": "Nếu đang lái xe hay cố gắng lái vào bên đường và dừng lại",
+    "content": "Không được có chui qua hoặc vượt qua những cây cầu vì chúng có thể bị sập"
+  }
+
 }

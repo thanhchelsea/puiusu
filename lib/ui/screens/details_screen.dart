@@ -277,7 +277,7 @@ class _DetailsState extends State<Details> {
       ),
       ReportScreen(indexEarthqyuake),
 
-     // sendImage(indexEarthqyuake),
+      // sendImage(indexEarthqyuake),
     ];
     return DefaultTabController(
       length: 2,

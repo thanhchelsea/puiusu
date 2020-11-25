@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
 
+import '../design_course_app_theme.dart';
+
 class TabIconData {
   TabIconData({
     this.imagePath, // = '',
@@ -26,7 +28,7 @@ class TabIconData {
       ),
       selectedImagePath: Icon(
         Icons.public,
-        color: AppTheme.nearlyDarkBlue.withOpacity(0.6),
+        color: DesignCourseAppTheme.nearlyBlue.withOpacity(0.6),
         size: 35,
       ),
       index: 0,
@@ -40,7 +42,7 @@ class TabIconData {
       ),
       selectedImagePath: Icon(
         Icons.notifications_none,
-        color: AppTheme.nearlyDarkBlue.withOpacity(0.6),
+        color: DesignCourseAppTheme.nearlyBlue.withOpacity(0.6),
         size: 36,
       ),
       index: 1,
@@ -55,7 +57,7 @@ class TabIconData {
       ), //'assets/images/ic-back.png',
       selectedImagePath: Icon(
         Icons.settings,
-        color: AppTheme.nearlyDarkBlue.withOpacity(0.6),
+        color:  DesignCourseAppTheme.nearlyBlue.withOpacity(0.6),
         size: 36,
       ), //'assets/images/ic-back.png',
       index: 2,
@@ -64,13 +66,13 @@ class TabIconData {
     ),
     TabIconData(
       imagePath: Icon(
-        Icons.help_outline,
+        Icons.star_border,
         color: AppTheme.grey.withOpacity(0.6),
         size: 36,
       ),
       selectedImagePath: Icon(
-        Icons.help_outline,
-        color: AppTheme.nearlyDarkBlue.withOpacity(0.6),
+        Icons.star_border,
+        color: DesignCourseAppTheme.nearlyBlue.withOpacity(0.6),
         size: 36,
       ),
       index: 3,

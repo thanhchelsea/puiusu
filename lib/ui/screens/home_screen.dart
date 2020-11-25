@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_earthquake_network/ui/screens/safety_screen.dart';
 import 'package:flutter_earthquake_network/ui/screens/screens.dart';
 import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
 import 'package:flutter_earthquake_network/ui/template/bottom_navigation_view/bottom_bar_view.dart';
@@ -151,7 +152,7 @@ class _HomeState extends State<Home>
                       return;
                     }
                     setState(() {
-                      tabBody = FAQScreen();
+                      tabBody = SafetyScreen();
                     });
                   });
                 }

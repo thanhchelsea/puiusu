@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_earthquake_network/res/dimens.dart';
+import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/utils/device.dart';
 
 class CustomTabView extends StatefulWidget {
@@ -101,6 +102,7 @@ class _CustomTabsState extends State<CustomTabView>
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,crossAxisAlignment: CrossAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
              Container(
@@ -108,15 +110,15 @@ class _CustomTabsState extends State<CustomTabView>
               child: Material(
                 color: Colors.white,
                 child: TabBar(
-                  //indicatorWeight: 10,
+                  indicatorWeight: 2,
                   controller: controller,
                   labelColor: Theme.of(context).primaryColor,
                  // unselectedLabelColor: Theme.of(context).hintColor,
                   indicator: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        color: Colors.white,
-                        width:0,
+                        color: FitnessAppTheme.nearlyBlue,
+                        width:2,
                       ),
                     ),
                   ),
