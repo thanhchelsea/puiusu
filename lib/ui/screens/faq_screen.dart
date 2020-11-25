@@ -7,7 +7,8 @@ class FAQScreen extends StatelessWidget {
     return Scaffold(
       body: BaseScreenMethod(
         title: "home.faq",
-        body: Container(),
+        body: Center(
+        ),
       ),
     );
   }

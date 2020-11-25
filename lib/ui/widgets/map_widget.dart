@@ -53,8 +53,6 @@ class _MapState extends State<MapWidget>
           setState(() {
             mapType = MapType.normal;
           });
-
-          print(" da thay doi sang " + typeMap);
           break;
         }
       case "Statellite":
@@ -63,7 +61,6 @@ class _MapState extends State<MapWidget>
             mapType = MapType.satellite;
           });
 
-          print(" da thay doi sang " + typeMap);
           break;
         }
       case "Terrain":
@@ -71,7 +68,6 @@ class _MapState extends State<MapWidget>
           setState(() {
             mapType = MapType.terrain;
           });
-          print(" da thay doi sang" + typeMap);
           break;
         }
       case "Hybird":
@@ -79,7 +75,6 @@ class _MapState extends State<MapWidget>
           setState(() {
             mapType = MapType.hybrid;
           });
-          print(" da thay doi sang" + typeMap);
           break;
         }
     }
@@ -96,7 +91,9 @@ class _MapState extends State<MapWidget>
       if (HomeBloc.listEarthquake != null) {
         int count = 0;
         for (int i = 0; i < HomeBloc.listEarthquake.length; i++) {
-          for (int rad = 0; rad < Common.circleCount( HomeBloc.listEarthquake[i].magnitude); rad++) {
+          for (int rad = 0;
+              rad < Common.circleCount(HomeBloc.listEarthquake[i].magnitude);
+              rad++) {
             if (rad == 0) {
               _dscir.add(
                 Circle(
@@ -158,7 +155,9 @@ class _MapState extends State<MapWidget>
     super.initState();
     getTypeMapShred();
     if (widget.listMaker != null) {
-      for (int rad = 0; rad <Common.circleCount(widget.listMaker[0].magnitude); rad++) {
+      for (int rad = 0;
+          rad < Common.circleCount(widget.listMaker[0].magnitude);
+          rad++) {
         if (rad == 0) {
           _dscir.add(
             Circle(
@@ -167,13 +166,14 @@ class _MapState extends State<MapWidget>
                   widget.listMaker[0].time)), //Color(0xff000000),
               circleId: CircleId(_dscir.length.toString()),
               center: LatLng(
-                  double.parse((widget.listMaker[0].lat)),
-                  double.parse((widget.listMaker[0]
-                      .lng))), // id cua circle khong bao h trung nhau
+                double.parse((widget.listMaker[0].lat)),
+                double.parse((widget.listMaker[0].lng)),
+              ), // id cua circle khong bao h trung nhau
               radius: 5000,
               strokeWidth: 1,
               fillColor: AppTheme.monthColor(
-                  Common.readTimestampToMonth(widget.listMaker[0].time)),
+                Common.readTimestampToMonth(widget.listMaker[0].time),
+              ),
             ),
           );
         } else {
@@ -340,7 +340,8 @@ class _MapState extends State<MapWidget>
                             ),
                             decoration: BoxDecoration(
                               color: Colors.blue.withOpacity(0.6),
-                              borderRadius:BorderRadius.all(Radius.circular(10)),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
                             ),
                           ),
                         ],

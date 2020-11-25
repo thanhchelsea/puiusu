@@ -3,7 +3,6 @@ import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/routes.dart';
 import 'package:flutter_earthquake_network/ui/widgets/pop_menu.dart';
 import 'package:flutter_earthquake_network/utils/device.dart';
-import 'package:share/share.dart';
 
 class BaseScreenMethod extends StatelessWidget {
   final String title;
@@ -13,6 +12,7 @@ class BaseScreenMethod extends StatelessWidget {
   final bool iconSearch;
   final bool iconBack;
   final Widget body;
+  Function  shareImage;
 
   BaseScreenMethod({
     Key key,
@@ -23,6 +23,7 @@ class BaseScreenMethod extends StatelessWidget {
     this.iconBack,
     this.body,
     this.iconSearch,
+    this.shareImage,
   }) : super(key: key);
 
   Widget getAppBarUI(BuildContext context) {
@@ -120,7 +121,7 @@ class BaseScreenMethod extends StatelessWidget {
                                 Radius.circular(32.0),
                               ),
                               onTap: () {
-                                _onShare(context);
+                                shareImage();
                               },
                               child: Container(
                                 child: Icon(Icons.share),
@@ -153,16 +154,7 @@ class BaseScreenMethod extends StatelessWidget {
       ),
     );
   }
-
-  _onShare(BuildContext context) async {
-    List<String> list;
-    final RenderBox box = context.findRenderObject();
-    await Share.share(
-      'https://pub.dev/packages/share/example',
-      subject: 'URL File Share',
-      sharePositionOrigin: box.localToGlobal(Offset.zero) & box.size,
-    );
-  }
+// Widget Text("sds");
 
   @override
   Widget build(BuildContext context) {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_earthquake_network/route_observer.dart';
 import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
 import 'package:flutter_earthquake_network/utils/navigator.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   final String language;
   MyApp.language({this.language});
-
+  final _routeObserver = MyObserver();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(

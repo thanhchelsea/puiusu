@@ -1,8 +1,6 @@
-import 'dart:ffi';
-
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/res/dimens.dart';
@@ -15,6 +13,7 @@ import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:flutter_earthquake_network/utils/hex_color.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+
 class Details extends StatefulWidget {
   Details();
 
@@ -24,12 +23,15 @@ class Details extends StatefulWidget {
 
 class _DetailsState extends State<Details> {
   static GlobalKey _globalKey = GlobalKey();
-
+  GlobalKey key1;
+  Uint8List bytes1;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
+
 
   Widget Overview(EarthquakeModel earthquakeModel) {
     final double infoHeight = 364.0;
@@ -238,7 +240,8 @@ class _DetailsState extends State<Details> {
 
   @override
   Widget build(BuildContext context) {
-    EarthquakeModel indexEarthqyuake = ModalRoute.of(context).settings.arguments;
+    EarthquakeModel indexEarthqyuake =
+        ModalRoute.of(context).settings.arguments;
     List<EarthquakeModel> list = new List<EarthquakeModel>();
     list.add(indexEarthqyuake);
     List<Widget> ds = [
@@ -253,10 +256,8 @@ class _DetailsState extends State<Details> {
                     listMaker: list,
                     cameraPosition: CameraPosition(
                       target: LatLng(
-                        double.parse(
-                            indexEarthqyuake.lat),
-                        double.parse(
-                            indexEarthqyuake.lng),
+                        double.parse(indexEarthqyuake.lat),
+                        double.parse(indexEarthqyuake.lng),
                       ), // song gianh
                       zoom: 8,
                     ),
@@ -275,6 +276,8 @@ class _DetailsState extends State<Details> {
         ),
       ),
       ReportScreen(indexEarthqyuake),
+
+     // sendImage(indexEarthqyuake),
     ];
     return DefaultTabController(
       length: 2,
@@ -284,9 +287,10 @@ class _DetailsState extends State<Details> {
           body: SafeArea(
             child: BaseScreenMethod(
               titleCity: indexEarthqyuake.address,
-              //iconShare: true,
+              iconShare: true,
               iconMoreMenu: true,
               iconBack: true,
+            //  shareImage: () => _shareImages(),
               body: CustomTabView(
                 initPosition: initPosition,
                 itemCount: data.length,

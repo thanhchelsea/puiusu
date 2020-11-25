@@ -20,11 +20,9 @@ import 'package:http/http.dart' as http;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  BlocSupervisor.delegate = SimpleBlocDelegate();
   String language = await Common.getTypeLanguage();
   String typeMap = await Common.getTypeMap();
-
-//  EarthquakeRepository  a=new  EarthquakeRepository();
-//  a.getReport(1);
   if (language == null) {
     Common.saveTypeLanguage("vi");
     language = "vi";

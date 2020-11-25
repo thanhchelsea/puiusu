@@ -43,22 +43,22 @@ class _HomeDrawerState extends State<HomeDrawer> {
       DrawerList(
         index: DrawerIndex.About,
         labelName: Language.of(context).getText('home.about'),
-        icon: Icon(Icons.help),
+        icon: Icon(Icons.info_outline),
       ),
       DrawerList(
         index: DrawerIndex.FAQ,
         labelName: Language.of(context).getText('home.faq'),
-        icon: Icon(Icons.group),
+        icon: Icon(Icons.question_answer),
       ),
       DrawerList(
         index: DrawerIndex.Terms_And_Conditions,
         labelName: Language.of(context).getText('home.terms_and_conditions'),
-        icon: Icon(Icons.share),
+        icon: Icon(Icons.book),
       ),
       DrawerList(
         index: DrawerIndex.Privacy_Policy,
         labelName: Language.of(context).getText('home.privacy_policy'),
-        icon: Icon(Icons.info),
+        icon: Icon(Icons.security),
       ),
     ];
   }

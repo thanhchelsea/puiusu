@@ -144,7 +144,7 @@ class PieChart2State extends State<PieChartSample2> {
                         margin: EdgeInsets.only(bottom: 15),
                         //alignment: Alignment.centerLeft,
                         child: Text(
-                          "Chọn cấp độ báo cáo",
+                          "Chọn cấp độ đánh giá",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
