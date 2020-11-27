@@ -55,11 +55,6 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: Language.of(context).getText('home.terms_and_conditions'),
         icon: Icon(Icons.book),
       ),
-      DrawerList(
-        index: DrawerIndex.Privacy_Policy,
-        labelName: Language.of(context).getText('home.privacy_policy'),
-        icon: Icon(Icons.security),
-      ),
     ];
   }
 

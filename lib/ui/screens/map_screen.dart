@@ -29,85 +29,88 @@ class MapScreen extends StatelessWidget {
       title: 'home.map',
       iconSearch: true,
       iconMoreMenu: true,
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              AspectRatio(
-                aspectRatio: 1.3,
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 20),
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.3,
+                  child: BlocConsumer<HomeBloc, BaseState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return MapWidget(
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Positioned(
+              top: (MediaQuery.of(context).size.width / 1.2) - 36,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: DesignCourseAppTheme.nearlyWhite,
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: DesignCourseAppTheme.grey.withOpacity(0.2),
+                      offset: const Offset(
+                        1.1,
+                        1.1,
+                      ),
+                      blurRadius: 10.0,
+                    ),
+                  ],
+                ),
                 child: BlocConsumer<HomeBloc, BaseState>(
                   listener: (context, state) {},
                   builder: (context, state) {
-                    return MapWidget(
+                    return Container(
+                      constraints: BoxConstraints(
+                        minHeight: infoHeight,
+                        maxHeight:
+                            tempHeight > infoHeight ? tempHeight : infoHeight,
+                      ),
+                      child: state is LoadingState
+                          ? Center(child: CircularProgressIndicator())
+                          : Container(
+                              padding: EdgeInsets.only(top: 4),
+                              child: state is LoadedState<List<EarthquakeModel>>
+                                  ? ListView.builder(
+                                      scrollDirection: Axis.vertical,
+                                      padding: EdgeInsets.only(
+                                        top: 10,
+                                        left: 10,
+                                        right: 10,
+                                        bottom: 20,
+                                      ),
+                                      itemCount: HomeBloc.listEarthquake.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        if (HomeBloc.listEarthquake.isNotEmpty) {
+                                          return EarthquakeItem(
+                                               HomeBloc.listEarthquake[index],index);
+                                        } else
+                                          return Text("connect server fail");
+                                      },
+                                    )
+                                  : Text("f"),
+                            ),
                     );
                   },
                 ),
               ),
-            ],
-          ),
-          Positioned(
-            top: (MediaQuery.of(context).size.width / 1.2) - 36,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: DesignCourseAppTheme.nearlyWhite,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(20.0),
-                  topRight: Radius.circular(20.0),
-                ),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: DesignCourseAppTheme.grey.withOpacity(0.2),
-                    offset: const Offset(
-                      1.1,
-                      1.1,
-                    ),
-                    blurRadius: 10.0,
-                  ),
-                ],
-              ),
-              child: BlocConsumer<HomeBloc, BaseState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  return Container(
-                    constraints: BoxConstraints(
-                      minHeight: infoHeight,
-                      maxHeight:
-                          tempHeight > infoHeight ? tempHeight : infoHeight,
-                    ),
-                    child: state is LoadingState
-                        ? Center(child: CircularProgressIndicator())
-                        : Container(
-                            padding: EdgeInsets.only(top: 4),
-                            child: state is LoadedState<List<EarthquakeModel>>
-                                ? ListView.builder(
-                                    scrollDirection: Axis.vertical,
-                                    padding: EdgeInsets.only(
-                                      top: 10,
-                                      left: 10,
-                                      right: 10,
-                                      bottom: 20,
-                                    ),
-                                    itemCount: HomeBloc.listEarthquake.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      if (HomeBloc.listEarthquake.isNotEmpty) {
-                                        return EarthquakeItem(
-                                             HomeBloc.listEarthquake[index],index);
-                                      } else
-                                        return Text("connect server fail");
-                                    },
-                                  )
-                                : Text("f"),
-                          ),
-                  );
-                },
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

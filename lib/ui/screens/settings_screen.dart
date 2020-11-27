@@ -30,7 +30,7 @@ class SettingScreens extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(
                   //  top: AppDimens.SIZE_15,
-                    left: AppDimens.SIZE_15,
+                    left: AppDimens.SIZE_4,
                     bottom: AppDimens.SIZE_30,
                   ),
                   child: Column(

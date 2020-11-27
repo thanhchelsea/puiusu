@@ -47,6 +47,7 @@ dependencies:
   firebase_messaging: ^ 6.0.12
   firebase_core: ^0.4.0
   esys_flutter_share: ^1.0.2
+  webview_flutter: 0.3.18
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -74,6 +75,10 @@ flutter:
     - assets/strings/
     - assets/images/
     - assets/json_assets/
+    - assets/faq.html
+    - assets/about.html
+    - assets/privacy.html
+    - assets/terms.html
 
   fonts:
     - family: Montserrat

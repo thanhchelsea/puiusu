@@ -205,25 +205,27 @@ class _DetailsState extends State<Details> {
                   Container(
                     padding: const EdgeInsets.only(
                         top: 8, left: 8, right: 8, bottom: 8),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          unit != null
-                              ? content = content +
-                                  " " +
-                                  Language.of(context).getText(unit)
-                              : content,
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 16,
-                            letterSpacing: 0.27,
-                            color: DesignCourseAppTheme.grey,
+                    child: SingleChildScrollView(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            unit != null
+                                ? content = content +
+                                    " " +
+                                    Language.of(context).getText(unit)
+                                : content,
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                              letterSpacing: 0.27,
+                              color: DesignCourseAppTheme.grey,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -287,7 +289,7 @@ class _DetailsState extends State<Details> {
           body: SafeArea(
             child: BaseScreenMethod(
               titleCity: indexEarthqyuake.address,
-              iconShare: true,
+             // iconShare: true,
               iconMoreMenu: true,
               iconBack: true,
             //  shareImage: () => _shareImages(),

@@ -33,7 +33,6 @@ class DialogConfirmReport extends StatefulWidget {
 
 class DialogConfirmReportState extends State<DialogConfirmReport>
     with TickerProviderStateMixin {
- // final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey1 = new GlobalKey<ScaffoldState>();
 
   Widget AboutReport() {
@@ -53,7 +52,9 @@ class DialogConfirmReportState extends State<DialogConfirmReport>
   Widget ButtonWidget() {
     return BlocConsumer<ReportBloc,BaseState>(
       listener: (context, state) {
-
+        if(state is SuccessReport){
+         BlocProvider.of<ReportBloc>(context).add(getReport(widget.e.id));
+        }
       },
       builder: (context, state) {
         return Padding(

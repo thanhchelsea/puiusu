@@ -63,6 +63,11 @@
     "unit" : "độ richter",
     "km": "km"
   },
+  "search_screen":{
+    "sort": "Sắp xếp",
+    "magntitude": "Độ lớn giảm dần",
+    "time": "Gần đây nhất"
+  },
   "sos": {
     "contact_to" : "Liên lạc khẩn cấp tới..."
   },
@@ -102,11 +107,10 @@
   },
   "bp3": {
     "title": "Nếu đang ở trên một ngọn núi hoặc ở gần một quả đồi nghiêng dốc",
-    "content": "Hảy tránh xa chỗ dốc đứng vì chỗ đó có thể bị lở đất"
+    "content": "Hãy tránh xa chỗ dốc đứng vì chỗ đó có thể bị lở đất"
   },
   "bp4": {
     "title": "Nếu đang lái xe hay cố gắng lái vào bên đường và dừng lại",
     "content": "Không được có chui qua hoặc vượt qua những cây cầu vì chúng có thể bị sập"
   }
-
 }

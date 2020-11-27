@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:typed_data';
 import 'dart:ui';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/blocs.dart';
@@ -9,8 +10,6 @@ import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
-import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
-import 'package:flutter_earthquake_network/ui/widgets/circle.dart';
 import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -139,7 +138,7 @@ class _MapState extends State<MapWidget>
           }
           count++;
         }
-        print(_dscir.length.toString() + " sizecircle");
+
       }
     }
   }
@@ -214,25 +213,21 @@ class _MapState extends State<MapWidget>
               case "Normal":
                 {
                   mapType = MapType.normal;
-                  print(" da thay doi " + state.Map);
                   break;
                 }
               case "Statellite":
                 {
                   mapType = MapType.satellite;
-                  print(" da thay doi " + state.Map);
                   break;
                 }
               case "Terrain":
                 {
                   mapType = MapType.terrain;
-                  print(" da thay doi " + state.Map);
                   break;
                 }
               case "Hybird":
                 {
                   mapType = MapType.hybrid;
-                  print(" da thay doi " + state.Map);
                   break;
                 }
             }
@@ -260,6 +255,9 @@ class _MapState extends State<MapWidget>
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
                       },
+                      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
+                        new Factory<OneSequenceGestureRecognizer>(() => new EagerGestureRecognizer(),),
+                      ].toSet(),
                     );
                   },
                 ),

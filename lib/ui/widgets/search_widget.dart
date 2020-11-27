@@ -4,6 +4,7 @@ import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/data/model/model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/ui/template/hotel_app_theme.dart';
+import 'package:flutter_earthquake_network/ui/widgets/pop_search.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
 import 'package:flutter_earthquake_network/utils/device.dart';
 
@@ -90,13 +91,13 @@ class _SearchWidgetState extends State<SearchWidget> {
                                                     padding: EdgeInsets.only(
                                                         left: 20,
                                                         top: 10,
-                                                        bottom: 10),
+                                                        bottom: 10,),
                                                     child: Text(
                                                       state.data[index].name,
                                                       style: TextStyle(
                                                           fontSize: 16,
                                                           fontWeight:
-                                                              FontWeight.w600),
+                                                              FontWeight.w600,),
                                                     ),
                                                   ),
                                                 ],
@@ -283,25 +284,22 @@ class _SearchWidgetState extends State<SearchWidget> {
                     borderRadius: const BorderRadius.all(
                       Radius.circular(4.0),
                     ),
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Row(
                         children: <Widget>[
                           Text(
-                            'Filter',
+                            Language.of(context).getText("search_screen.sort"),
                             style: TextStyle(
                               fontWeight: FontWeight.w100,
                               fontSize: 16,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
-                                color: HotelAppTheme.buildLightTheme()
-                                    .primaryColor),
+                          Container(
+                            padding: EdgeInsets.only(left: 4),
+                            child: Center(
+                              child:PopSearch()
+                            ),
                           ),
                         ],
                       ),

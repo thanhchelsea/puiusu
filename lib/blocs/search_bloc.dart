@@ -49,6 +49,12 @@ class SearchBloc extends BaseBloc {
         yield ErrorState(data: "search_null");
       }
     }
+    if(event is SortMagntitude){
+      ListCityEarthquake.sort((a, b) => b.magnitude.compareTo(a.magnitude));// sap xep theo do lon giam dan
+    }
+    if(event is SortTime){
+      ListCityEarthquake.sort((a, b) => b.time.compareTo(a.time));// sap xep theo thoi gian gan nhat
+    }
   }
 }
 
@@ -63,6 +69,12 @@ class EmptyText extends BaseEvent {
   @override
   List<Object> get props => [props];
   EmptyText();
+}
+class SortTime extends BaseEvent{
+
+}
+class SortMagntitude extends BaseEvent{
+
 }
 class SearchEarthquke extends BaseEvent{
   String city;

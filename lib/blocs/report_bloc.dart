@@ -22,7 +22,6 @@ class ReportBloc extends BaseBloc {
       print("yeu cau geet list report");
       listReport=await earthquakeRepository.getReport(event.idEarthquke);
       if(listReport!=null){
-        print(listReport.length.toString()+ " so luon rp");
         yield LoadedState(data:listReport);
       }
       else yield ErrorState(data: "no report");

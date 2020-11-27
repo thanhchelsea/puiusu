@@ -1,3 +1,3 @@
 export 'device.dart';
 export 'navigator.dart';
-export 'locator.dart';
+export 'common.dart';

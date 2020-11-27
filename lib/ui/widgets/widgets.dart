@@ -10,3 +10,4 @@ export 'chart_widget.dart';
 export 'dialog_confirm_report.dart';
 export 'messaging_widget.dart';
 export 'widget_to_image.dart';
+export 'pop_search.dart';
