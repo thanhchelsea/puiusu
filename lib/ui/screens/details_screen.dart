@@ -291,6 +291,7 @@ class _DetailsState extends State<Details> {
               titleCity: indexEarthqyuake.address,
              // iconShare: true,
               iconMoreMenu: true,
+              isShowRefresh:false,
               iconBack: true,
             //  shareImage: () => _shareImages(),
               body: CustomTabView(

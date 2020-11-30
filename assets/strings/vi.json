@@ -1,5 +1,8 @@
 {
   "app_name": "Earthquake",
+  "alert": {
+    "new_earthquake": "Có động đất mới."
+  },
   "home": {
     "home": "Trang chủ",
     "map": "Bản đồ",
@@ -61,7 +64,9 @@
     "depth": "Độ sâu",
     "risk_level": "Mức rủi ro",
     "unit" : "độ richter",
-    "km": "km"
+    "km": "km",
+    "view_on_map": "Hiển thị trên bản đồ",
+    "map_report": "Bản đồ đánh giá"
   },
   "search_screen":{
     "sort": "Sắp xếp",
@@ -69,7 +74,7 @@
     "time": "Gần đây nhất"
   },
   "sos": {
-    "contact_to" : "Liên lạc khẩn cấp tới..."
+    "contact_to" : "Liên hệ khẩn cấp tới..."
   },
   "send_report": "Gửi báo cáo",
   "msk_64": {

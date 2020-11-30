@@ -1,5 +1,8 @@
 {
   "app_name": "Earthquake",
+  "alert": {
+    "new_earthquake": "New earthquake."
+  },
   "home": {
     "home": "Home",
     "map": "Map",
@@ -61,7 +64,9 @@
     "depth": "Depth",
     "risk_level": "Risk Level",
     "unit" : "richter",
-    "km": "km"
+    "km": "km",
+    "view_on_map": "View on map",
+    "map_report": "Map report"
   },
   "search_screen":{
     "sort": "Sort",

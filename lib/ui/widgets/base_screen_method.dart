@@ -12,6 +12,7 @@ class BaseScreenMethod extends StatelessWidget {
   final bool iconSearch;
   final bool iconBack;
   final Widget body;
+   bool isShowRefresh=true;
   Function  shareImage;
 
   BaseScreenMethod({
@@ -24,6 +25,7 @@ class BaseScreenMethod extends StatelessWidget {
     this.body,
     this.iconSearch,
     this.shareImage,
+    this.isShowRefresh
   }) : super(key: key);
 
   Widget getAppBarUI(BuildContext context) {
@@ -139,7 +141,7 @@ class BaseScreenMethod extends StatelessWidget {
                               onTap: () {},
                               child: Container(
                                 child: PopMenu(
-                                  isRefresh: true,
+                                  isRefresh: isShowRefresh,
                                 ),
                               ),
                             ),

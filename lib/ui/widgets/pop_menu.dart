@@ -7,7 +7,7 @@ import '../../localizations.dart';
 import '../../routes.dart';
 
 class PopMenu extends StatefulWidget {
-  final bool isRefresh;
+  bool isRefresh = true;
 
   PopMenu({this.isRefresh});
 
@@ -35,7 +35,7 @@ class _PopMenuState extends State<PopMenu> {
                     ),
                   ),
                 ),
-                (widget.isRefresh)
+                (widget.isRefresh == true)
                     ? PopupMenuItem(
                         value: 2,
                         child: InkWell(

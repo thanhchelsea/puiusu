@@ -11,7 +11,6 @@ import '../../blocs/base_bloc/base.dart';
 import '../../blocs/blocs.dart';
 import '../../blocs/sos_bloc.dart';
 import '../../localizations.dart';
-import '../../localizations.dart';
 
 class DialogSOS extends StatefulWidget {
   const DialogSOS({

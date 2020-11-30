@@ -6,3 +6,4 @@ export 'search_bloc.dart';
 export 'report_bloc.dart';
 export 'alert_bloc.dart';
 export 'simple_bloc_delegate.dart';
+export 'map_report_bloc.dart';

@@ -27,6 +27,7 @@ class MapScreen extends StatelessWidget {
         36;
     return BaseScreenMethod(
       title: 'home.map',
+      isShowRefresh:true,
       iconSearch: true,
       iconMoreMenu: true,
       body: Padding(

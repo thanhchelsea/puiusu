@@ -146,43 +146,43 @@ class AppTheme {
   static Color levelColor(int level) {//report
     switch (level) {
       case 0:
-        return Colors.pinkAccent;
+        return Color(0xffff5050); //ff5050
       case 1:
-        return Colors.blueGrey;
+        return Color(0xff008080); //008080
       case 2:
-        return Colors.greenAccent;
+        return Color(0xff4dd2ff);//4dd2ff
       case 3:
-        return Colors.deepPurpleAccent;
+        return Color(0xff751aff);//751aff
       case 4:
-        return Colors.amberAccent;
+        return Color(0xffe6b800);//e6b800
       case 5:
-        return Colors.teal;
+        return Color(0xff40bf80);//40bf80
       case 6:
-        return Colors.lime;
+        return Color(0xff999900);//999900
       case 7:
-        return Colors.redAccent;
+        return Color(0xff991f00); //991f00
       case 8:
-        return Colors.purpleAccent;
+        return Color(0xffff00ff); //ff00ff
       case 9:
-        return Colors.deepPurple;
+        return Color(0xff0000b3); //0000b3
       case 10:
-        return Colors.blueGrey;
+        return Color(0xff52527a);//52527a
       case 11:
-        return Colors.brown;
+        return Color(0xff734d26); //734d26
     }
   }
 
   static Color monthColor(int count) {
-    if (count <= 2) {
+    if (count  <2) {
       return Color(0xffff1a1a); // 2tuan
     } else {
-      if (count > 2 && count <= 4) {
+      if (count >= 2 && count < 4) {
         return Color(0xffe68a00); //1 thang
       } else {
-        if (count > 4 && count <= 8) {
+        if (count >= 4 && count < 8) {
           return Color(0xffffff00); //2 thang
         } else {
-          if (count > 8 && count <= 12) {
+          if (count >= 8 && count < 12) {
             return Color(0xfff5f5f0); //3 thang
           } else
             return Color(0xffc2c2a3); // 6 thang

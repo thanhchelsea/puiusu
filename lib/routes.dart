@@ -27,6 +27,7 @@ class Routes {
   static const String SOSScreen = "/SOSScreen";
   static const String alertScreen="/alert_screen";
   static const String changeLanguage="/change_language_screen";
+  static const String MapReport="map_report_earthquake";
 
   static String initScreen() => home;
   //init screen name
@@ -46,5 +47,6 @@ class Routes {
     sosSettingSMS: (context) => SMSSetting(),
     alertScreen: (context) => AlertScreen(),
     changeLanguage: (context) => ChangeLanguageScreen(),
+    MapReport: (context) => MapReportEarthquake(),
   };
 }

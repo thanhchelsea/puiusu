@@ -29,6 +29,7 @@ class _MapState extends State<MapWidget>
     with AutomaticKeepAliveClientMixin<MapWidget> {
   @override
   bool get wantKeepAlive => true;
+
   Completer<GoogleMapController> _controller = Completer();
   MapType mapType;
   String typeMap;

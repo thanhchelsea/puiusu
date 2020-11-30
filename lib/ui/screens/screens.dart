@@ -12,3 +12,4 @@ export 'sos_settings_screen.dart';
 export 'config_sms_setting_screen.dart';
 export 'alert_screen.dart';
 export 'splash_screen.dart';
+export 'map_report_earthquake.dart';

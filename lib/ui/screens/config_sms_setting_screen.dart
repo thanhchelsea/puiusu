@@ -5,6 +5,7 @@ import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/dialog_sms_setting.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../blocs/base_bloc/base.dart';
 import '../../blocs/blocs.dart';
 import '../../localizations.dart';
@@ -46,6 +47,45 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
     );
   }
 
+  Widget itemPhone(int index) {
+    return Slidable(
+        actionPane: SlidableDrawerActionPane(),
+        actionExtentRatio: 0.25,
+        child: Container(
+          color: Colors.white,
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundColor: FitnessAppTheme.nearlyBlue,
+              child: Text(PhoneSetting.dsPhone[index].name[0].toUpperCase()),
+              foregroundColor: Colors.white,
+            ),
+            title: Text(
+              PhoneSetting.dsPhone[index].name,
+              style: TextStyle(
+                fontFamily: FitnessAppTheme.fontName,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            subtitle: Text(
+              PhoneSetting.dsPhone[index].phone,
+              style: TextStyle(
+                color: FitnessAppTheme.grey.withOpacity(0.7),
+              ),
+            ),
+          ),
+        ),
+        secondaryActions: <Widget>[
+          IconSlideAction(
+              caption: 'Delete',
+              color: Colors.red,
+              icon: Icons.delete,
+              onTap: () => {
+                    BlocProvider.of<PhoneSetting>(context)
+                        .add(DeletePhone(index))
+                  }),
+        ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,120 +101,10 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
             body: Container(
               child: PhoneSetting.dsPhone.length > 0
                   ? ListView.builder(
+                      padding: EdgeInsets.only(top: 2),
                       itemCount: PhoneSetting.dsPhone.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            left: 24,
-                            right: 24,
-                            top: 8,
-                            bottom: 8,
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: FitnessAppTheme.white,
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                    color:
-                                        FitnessAppTheme.grey.withOpacity(0.2),
-                                    offset: Offset(1.1, 1.1),
-                                    blurRadius: 10.0),
-                              ],
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 8,
-                                    left: 16,
-                                    right: 24,bottom: 8,
-                                  ),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: FitnessAppTheme.nearlyBlue,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            padding: EdgeInsets.all(17),
-                                            child: Text(
-                                              PhoneSetting
-                                                  .dsPhone[index].name[0]
-                                                  .toUpperCase(),
-                                              style: TextStyle(
-                                                  color: AppTheme.white,
-                                                  fontSize: 17),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    PhoneSetting
-                                                        .dsPhone[index].name,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          FitnessAppTheme
-                                                              .fontName,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: 18,
-                                                      letterSpacing: 0.0,
-                                                      color: FitnessAppTheme
-                                                          .nearlyBlack,
-                                                    ),
-                                                  ),
-                                                ),
-                                                Container(
-                                                  alignment: Alignment.center,
-                                                  child: Text(
-                                                    PhoneSetting
-                                                        .dsPhone[index].phone,
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          FitnessAppTheme
-                                                              .fontName,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 16,
-                                                      letterSpacing: 0.0,
-                                                      color: FitnessAppTheme
-                                                          .grey
-                                                          .withOpacity(0.5),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return itemPhone(index);
                       },
                     )
                   : Center(
@@ -186,7 +116,7 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (PhoneSetting.dsPhone.length < 10) {
+          if (PhoneSetting.dsPhone.length < 5) {
             showDemoDialog(context: context);
           } else {
             _scaffoldKey.currentState.showSnackBar(SnackBar(

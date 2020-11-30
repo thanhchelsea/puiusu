@@ -58,6 +58,9 @@ void main() async {
           ),
           BlocProvider<AlertBloc>(
             create: (_)=>AlertBloc(),
+          ),
+          BlocProvider<MapReportBloc>(
+            create: (_)=>MapReportBloc(),
           )
         ],
         child: MyApp.language(language: language),

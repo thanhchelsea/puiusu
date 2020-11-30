@@ -19,7 +19,7 @@ class SOSBloc extends BaseBloc {
       for (PhoneNumber i in dsP) {
         recipents.add(i.phone);
       }
-      if (message == null) message = "help me !!!!!!";
+      if (message == null) message = "Giúp tôi. Tôi đang ở : !!!!!!";
       message = message + "\n" + message1;
       String _result = await FlutterSms.sendSMS(
         message: message,

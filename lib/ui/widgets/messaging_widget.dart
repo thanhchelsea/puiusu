@@ -12,6 +12,7 @@ import 'package:flutter_earthquake_network/ui/template/fintness_app_theme.dart';
 import 'package:flutter_earthquake_network/utils/common.dart';
 import 'package:flutter_earthquake_network/utils/hex_color.dart';
 import 'package:flutter_earthquake_network/utils/ultils.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import '../../routes.dart';
 
 class MessagingWidget extends StatefulWidget {
@@ -20,148 +21,13 @@ class MessagingWidget extends StatefulWidget {
 }
 
 class _MessagingWidgetState extends State<MessagingWidget> {
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
-  final List<Message> messages = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _firebaseMessaging.getToken().then((token) {
-      print(token.toString() + " token firebase");
-    });
-
-    _firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        //kích hoạt khi ứng dụng đang mở và chạy ở nền trước.
-        print("onMessage: $message"); //{notification: {title: run nowwwwww, body: die you ....quickly}, data: {id: 1}}
-        final notification = message['data'];
-        EarthquakeModel e;
-        try {
-          String id = notification['id'];
-          String region = notification['region'];
-          String magnitude = notification['magnitude'];
-          String lat = notification['lat'];
-          String lng = notification['lng'];
-          String timestamp = notification['timestamp'];
-          String depth = notification['depth'];
-          String riskLevel = notification['riskLevel'];
-
-          e = new EarthquakeModel(
-            id: int.parse(id),
-            address: region,
-            magnitude: double.parse(
-              magnitude,
-            ),
-            lat: lat,
-            lng: lng,
-            time: int.parse(timestamp),
-            depth: double.parse(depth),
-            riskLevel: int.parse(riskLevel),
-          );
-          print(e.time.toString() + ' do lon');
-        } catch (e) {
-          print(e.toString());
-        }
-        BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
-//        setState(() {
-//          messages.add(Message(
-//              title: notification['region'], body: notification['timestamp'].toString(),e: e));
-//        });
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        // kích hoạt nếu ứng dụng bị chấm dứt hoàn toàn.
-        print("onLaunch: $message");
-        final notification = message['data'];    EarthquakeModel e;
-        try {
-          String id = notification['id'];
-          String region = notification['region'];
-          String magnitude = notification['magnitude'];
-          String lat = notification['lat'];
-          String lng = notification['lng'];
-          String timestamp = notification['timestamp'];
-          String depth = notification['depth'];
-          String riskLevel = notification['riskLevel'];
-
-          e = new EarthquakeModel(
-            id: int.parse(id),
-            address: region,
-            magnitude: double.parse(
-              magnitude,
-            ),
-            lat: lat,
-            lng: lng,
-            time: int.parse(timestamp),
-            depth: double.parse(depth),
-            riskLevel: int.parse(riskLevel),
-          );
-          print(e.id.toString() + ' do lon');
-        } catch (e) {
-          print(e.toString());
-        }
-        setState(() {
-          messages.add(Message(
-            title: '${notification['region']}',
-            body: '${notification['timestamp']}',
-            e: e
-          ));
-        });
-        print("cai dm");
-      },
-      onResume: (Map<String, dynamic> message) async {
-        // kích hoạt nếu ứng dụng bị đóng nhưng vẫn chạy trong nền.
-        print("onResume: $message");
-        //   Navigator.pushNamed(context, Routes.settingScreen,);
-        final notification = message['data'];
-        EarthquakeModel e;
-        try {
-          String id = notification['id'];
-          String region = notification['region'];
-          String magnitude = notification['magnitude'];
-          String lat = notification['lat'];
-          String lng = notification['lng'];
-          String timestamp = notification['timestamp'];
-          String depth = notification['depth'];
-          String riskLevel = notification['riskLevel'];
-
-           e = new EarthquakeModel(
-              id: int.parse(id),
-              address: region,
-              magnitude: double.parse(
-                magnitude,
-              ),
-            lat: lat,
-            lng: lng,
-            time: int.parse(timestamp),
-            depth: double.parse(depth),
-            riskLevel: int.parse(riskLevel),
-          );
-          print(e.id.toString() + ' do lon');
-        } catch (e) {
-          print(e.toString());
-        }
-//         print(e.time.toString());
-        setState(() {
-          messages.add(Message(
-            title: '${notification['region']}',
-            body: '${notification['timestamp']}',
-             e: e
-          ));
-        });
-      },
-    );
-    _firebaseMessaging.requestNotificationPermissions(
-      const IosNotificationSettings(
-          sound: true, badge: true, alert: true, provisional: true),
-    );
-    BlocProvider.of<AlertBloc>(context).add(LoadingNotifi());
-  }
 
   @override
   Widget build(BuildContext context) {
   //  print(messages.length);
     return BlocConsumer<AlertBloc,BaseState>(
       listener: (context, state) {
-        print(AlertBloc.listEarthquakeLatest.length);
+        //print(AlertBloc.listEarthquakeLatest.length);
       },
       builder: (context, state) {
         return Container(
@@ -178,7 +44,7 @@ class _MessagingWidgetState extends State<MessagingWidget> {
   }
 
   Widget itemAlert(
-      EarthquakeModel e, BuildContext context) {
+      EarthquakeModel e, BuildContext context,) {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(
