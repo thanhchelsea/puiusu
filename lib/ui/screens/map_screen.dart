@@ -5,6 +5,7 @@ import 'package:flutter_earthquake_network/blocs/app_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/base_bloc/base.dart';
 import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
+import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/ui/template/design_course_app_theme.dart';
 import 'package:flutter_earthquake_network/ui/widgets/earthquake_item.dart';
 import 'package:flutter_earthquake_network/ui/widgets/map_widget.dart';
@@ -96,14 +97,14 @@ class MapScreen extends StatelessWidget {
                                       itemCount: HomeBloc.listEarthquake.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        if (HomeBloc.listEarthquake.isNotEmpty) {
+                                        if (HomeBloc.listEarthquake.length!=0) {
                                           return EarthquakeItem(
                                                HomeBloc.listEarthquake[index],index);
                                         } else
-                                          return Text("connect server fail");
+                                          return Text(Language.of(context).getText("home.empty_earthquake"));
                                       },
                                     )
-                                  : Text("f"),
+                                  : Center(child: Text(Language.of(context).getText("home.empty_earthquake"))),
                             ),
                     );
                   },

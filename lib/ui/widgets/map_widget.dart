@@ -20,7 +20,6 @@ class MapWidget extends StatefulWidget {
   List<EarthquakeModel> listMaker = [];
   CameraPosition cameraPosition;
   MapWidget({this.listMaker, this.cameraPosition});
-
   @override
   _MapState createState() => _MapState();
 }
@@ -89,7 +88,6 @@ class _MapState extends State<MapWidget>
     if (widget.listMaker != null) {
     } else {
       if (HomeBloc.listEarthquake != null) {
-        int count = 0;
         for (int i = 0; i < HomeBloc.listEarthquake.length; i++) {
           for (int rad = 0;
               rad < Common.circleCount(HomeBloc.listEarthquake[i].magnitude);
@@ -106,13 +104,11 @@ class _MapState extends State<MapWidget>
                     );
                   },
                   consumeTapEvents: true,
-                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
-                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
+//                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+//                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
                   circleId: CircleId(_dscir.length.toString()),
-                  center: LatLng(
-                      double.parse((HomeBloc.listEarthquake[i].lat)),
-                      double.parse((HomeBloc.listEarthquake[i]
-                          .lng))), // id cua circle khong bao h trung nhau
+                  center: LatLng(double.parse((HomeBloc.listEarthquake[i].lat)),
+                      double.parse((HomeBloc.listEarthquake[i].lng))),
                   radius: 5000,
                   strokeWidth: 1,
                   fillColor: AppTheme.monthColor(Common.readTimestampToMonth(
@@ -122,8 +118,8 @@ class _MapState extends State<MapWidget>
             } else {
               _dscir.add(
                 Circle(
-                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
-                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
+//                  strokeColor: AppTheme.monthColor(Common.readTimestampToMonth(
+//                      HomeBloc.listEarthquake[i].time)), //Color(0xff000000),
                   circleId: CircleId(_dscir.length.toString()),
                   //circleId: CircleId((a + rad).toString()),
                   center: LatLng(double.parse((HomeBloc.listEarthquake[i].lat)),
@@ -137,9 +133,7 @@ class _MapState extends State<MapWidget>
               );
             }
           }
-          count++;
         }
-
       }
     }
   }
@@ -256,8 +250,11 @@ class _MapState extends State<MapWidget>
                       onMapCreated: (GoogleMapController controller) {
                         _controller.complete(controller);
                       },
-                      gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
-                        new Factory<OneSequenceGestureRecognizer>(() => new EagerGestureRecognizer(),),
+                      gestureRecognizers:
+                          <Factory<OneSequenceGestureRecognizer>>[
+                        new Factory<OneSequenceGestureRecognizer>(
+                          () => new EagerGestureRecognizer(),
+                        ),
                       ].toSet(),
                     );
                   },
@@ -275,12 +272,12 @@ class _MapState extends State<MapWidget>
                   child: Container(
                     padding: EdgeInsets.all(6),
                     decoration: BoxDecoration(
-                      color: Colors.blue.withOpacity(0.6),
+                      color: Colors.white,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.info_outline,
-                      color: Colors.white,
+                      //color: Colors.white,
                     ),
                   ),
                 ),
@@ -290,7 +287,7 @@ class _MapState extends State<MapWidget>
                       top: 50,
                       left: 10,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Container(
@@ -300,7 +297,8 @@ class _MapState extends State<MapWidget>
                                   child: Text(
                                     "Thời gian",
                                     style: TextStyle(
-                                        fontSize: 12, color: Colors.white),
+                                      fontSize: 12,
+                                    ),
                                   ),
                                   margin: EdgeInsets.only(top: 10),
                                 ),
@@ -315,18 +313,24 @@ class _MapState extends State<MapWidget>
                                       return Container(
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
+                                              MainAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
+                                              margin:
+                                                  EdgeInsets.only(right: 10),
                                               width: 16,
                                               height: 25,
-                                              color: AppTheme.listColorMonth(
-                                                  index),
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                      AppTheme.listColorMonth(
+                                                          index),
+                                                  border: Border.all(
+                                                      color: Colors.blue)),
                                             ),
                                             Text(
                                               listTime[index],
                                               style: TextStyle(
-                                                  color: Colors.white,
+//                                                  color: Colors.white,
                                                   fontSize: 12),
                                             )
                                           ],
@@ -338,7 +342,7 @@ class _MapState extends State<MapWidget>
                               ],
                             ),
                             decoration: BoxDecoration(
-                              color: Colors.blue.withOpacity(0.6),
+                              color: Colors.white.withOpacity(0.6),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                             ),

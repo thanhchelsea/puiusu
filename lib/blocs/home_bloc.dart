@@ -22,10 +22,10 @@ class HomeBloc extends BaseBloc {
       yield LoadingState();
       try {
         listEarthquake = await earthquakeRepository.getListEarthquake();
-        if (listEarthquake != null) {
+        if (listEarthquake.length != 0) {
           yield LoadedState(data: listEarthquake);
         } else {
-          yield ErrorState(data: "connect fail");
+          yield ErrorState(data: "home.empty_earthquake");
         }
       } catch (e) {
         print(e.toString() );

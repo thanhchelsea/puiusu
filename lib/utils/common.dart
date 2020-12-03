@@ -103,16 +103,22 @@ class Common {
   }
   static int readTimestampToMonth(int timestamp) {
     var now = DateTime.now();
-    var format = DateFormat('yyyy-MM-dd ');
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     var diff = now.difference(date);
-    int time=int.parse((diff.inDays/7).floor().toString()) ;
+  //  int time=int.parse((diff.inHours/24).floor().toString()) ;
+    return diff.inHours;
+  }
+  static String readTime(int timestamp,BuildContext context){
+    var now = DateTime.now();
+    var format = DateFormat('HH:mm | dd-MM-yyyy');
+    var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    var diff = now.difference(date);
+    var time = '';time = format.format(date);
     return time;
-
   }
  static String readTimestamp(int timestamp,BuildContext context) {
     var now = DateTime.now();
-    var format = DateFormat('dd-MM-yyyy ');
+    var format = DateFormat('HH:mm | dd-MM-yyyy');
     var date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
     var diff = now.difference(date);
     var time = '';

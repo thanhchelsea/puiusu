@@ -173,19 +173,20 @@ class AppTheme {
   }
 
   static Color monthColor(int count) {
-    if (count  <2) {
-      return Color(0xffff1a1a); // 2tuan
+    int c=(count/24).floor();
+    if (c <1) {
+      return Color(0xffff1a1a); // <ngay, gio
     } else {
-      if (count >= 2 && count < 4) {
-        return Color(0xffe68a00); //1 thang
+      if (c >= 1 && c < 7) {
+        return Color(0xffe68a00); //<tuan
       } else {
-        if (count >= 4 && count < 8) {
-          return Color(0xffffff00); //2 thang
+        if (c >= 7 && c < 30) {
+          return Color(0xffffff00);// <thang
         } else {
-          if (count >= 8 && count < 12) {
-            return Color(0xfff5f5f0); //3 thang
+          if (c >= 30 && c < 365) {
+            return Color(0xfff5f5f0);// <nam
           } else
-            return Color(0xffc2c2a3); // 6 thang
+            return Color(0xffc2c2a3); // >nam
         }
       }
     }
@@ -200,9 +201,9 @@ class AppTheme {
       case 2:
         return Color(0xffffff00);
       case 3:
-        return Color(0xfff5f5f0);
-      case 4:
         return Color(0xffc2c2a3);
+      case 4:
+        return Color(0xfff5f5f0);
     }
   }
 }

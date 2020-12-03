@@ -78,7 +78,7 @@ class _DetailsState extends State<Details> {
                     Expanded(
                       child: _itemDetail(
                         "details.time",
-                        Common.readTimestamp(earthquakeModel.time, context),
+                        Common.readTime(earthquakeModel.time, context),
                         Icon(
                           Icons.timer,
                           size: AppDimens.SIZE_30,
@@ -180,58 +180,61 @@ class _DetailsState extends State<Details> {
           color: HexColor('#F8FAFB'),
           borderRadius: const BorderRadius.all(Radius.circular(16.0)),
         ),
-        child: Row(
-          children: <Widget>[
-            icon,
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
-                    child: Text(
-                      Language.of(context).getText(title),
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: FitnessAppTheme.nearlyBlue,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
-                        letterSpacing: 0.27,
-                        //color: DesignCourseAppTheme.darkerText,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: <Widget>[
+              icon,
+              Container(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+                      child: Text(
+                        Language.of(context).getText(title),
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: FitnessAppTheme.nearlyBlue,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                          letterSpacing: 0.27,
+                          //color: DesignCourseAppTheme.darkerText,
+                        ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        top: 8, left: 8, right: 8, bottom: 8),
-                    child: SingleChildScrollView(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            unit != null
-                                ? content = content +
-                                    " " +
-                                    Language.of(context).getText(unit)
-                                : content,
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 16,
-                              letterSpacing: 0.27,
-                              color: DesignCourseAppTheme.grey,
+                    Container(
+                      padding: const EdgeInsets.only(
+                          top: 8, left: 8, right: 8, bottom: 8),
+                      child: SingleChildScrollView(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              unit != null
+                                  ? content = content +
+                                      " " +
+                                      Language.of(context).getText(unit)
+                                  : content,
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                letterSpacing: 0.27,
+                                color: DesignCourseAppTheme.grey,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

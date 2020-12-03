@@ -190,11 +190,11 @@ class _SearchWidgetState extends State<SearchWidget> {
                       });
                     },
                     onChanged: (txt) {
-                      // BlocProvider.of<SearchBloc>(context).add(ChangText(txt));
+
                       if (txt.isEmpty) {
                         print("null");
                         BlocProvider.of<SearchBloc>(context).add(EmptyText());
-                      }
+                      }else BlocProvider.of<SearchBloc>(context).add(ChangText(txt));
                     },
                     style: const TextStyle(
                       fontSize: 18,

@@ -9,7 +9,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../blocs/base_bloc/base.dart';
 import '../../blocs/blocs.dart';
 import '../../localizations.dart';
-import '../template/app_theme.dart';
 
 class SMSSetting extends StatelessWidget {
   @override
@@ -33,7 +32,6 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
   @override
   void initState() {
     // TODO: implement initState
-    // List ds=_getList() as List;
     super.initState();
     BlocProvider.of<PhoneSetting>(context).add(LoadPhone());
   }

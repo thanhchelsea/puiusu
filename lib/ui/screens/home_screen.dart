@@ -109,7 +109,6 @@ class _HomeState extends State<Home>
     var initSetttings = new InitializationSettings(android: android, iOS: iOS);
     flutterLocalNotificationsPlugin.initialize(initSetttings,
         onSelectNotification: onSelectNotification);
-
     _firebaseMessaging.getToken().then((token) {
       print(token.toString() + " token firebase");
     });

@@ -16,7 +16,8 @@
     "privacy_policy": "Chính sách bảo mật",
     "refresh": "Làm mới",
     "titleDialog": "Để có trải nghiệm tốt hơn, hãy bật vị trí thiết bị bằng cách sử dụng dịch vụ vị trí của Google",
-    "alert": "Thông báo động đất"
+    "alert": "Thông báo động đất",
+    "empty_earthquake": "Chưa có động đất mới xảy ra."
   },
   "search": "Tìm kiếm",
   "ok": "Đồng ý",
@@ -94,7 +95,7 @@
   "day_ago": "ngày trước",
   "week_ago": "tuần trước",
   "time": {
-    "0": "< 2 tuần","1": " 1 tháng","2": "2 tháng","3": " 3 tháng","4": "> 6 tháng"
+    "0": " Giờ","1": " Ngày","2": " Tuần","3": " Tháng","4": "Cũ hơn"
   },
   "search_null": "Không tim thấy kết quả nào",
   "report_success": "Gửi báo cáo thành công",
