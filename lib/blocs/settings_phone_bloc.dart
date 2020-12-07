@@ -45,6 +45,23 @@ class PhoneSetting extends BaseBloc {
       await Common.saveListPhone(saveListPhone);
       yield ShowListPhone(data: dsPhone);
     }
+    if (event is EditPhone) {
+      String listP = await Common.getListPhone();
+      if (listP != null) {
+        dsPhone = PhoneNumber.decodeMusics(listP);
+      }
+      for(int i=0;i<dsPhone.length;i++){
+        if(i==event.phone){
+          dsPhone.removeAt(event.phone);
+          print(event.p.phone);
+          dsPhone.insert(event.phone, event.p);
+          break;
+        }
+      }
+      String saveListPhone = PhoneNumber.encodeMusics(dsPhone);
+      await Common.saveListPhone(saveListPhone);
+      yield ShowListPhone(data: dsPhone);
+    }
   }
 
   PhoneSetting();
@@ -83,4 +100,10 @@ class DeletePhone extends BaseEvent {
   DeletePhone(this.phone);
   @override
   List<Object> get props => [phone];
+}
+class EditPhone extends BaseEvent{
+  int phone;PhoneNumber p;
+  EditPhone(this.phone,this.p);
+  @override
+  List<Object> get props => [phone,p];
 }

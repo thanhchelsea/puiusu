@@ -45,6 +45,20 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
     );
   }
 
+  void confirmEdit(
+      {BuildContext context, String userName, String phoneNumber,int index}) {
+    showDialog<dynamic>(
+      context: context,
+      builder: (BuildContext context) => DialogSMSSetting(
+        barrierDismissible: true,
+        confirm: () => {print("ggf")},
+        username: userName,
+        phonenumber: phoneNumber,
+        index:index
+      ),
+    );
+  }
+
   Widget itemPhone(int index) {
     return Slidable(
         actionPane: SlidableDrawerActionPane(),
@@ -74,13 +88,27 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
         ),
         secondaryActions: <Widget>[
           IconSlideAction(
-              caption: 'Delete',
-              color: Colors.red,
-              icon: Icons.delete,
-              onTap: () => {
-                    BlocProvider.of<PhoneSetting>(context)
-                        .add(DeletePhone(index))
-                  }),
+            caption: Language.of(context).getText("settings.delete"),
+            color: Colors.red,
+            icon: Icons.delete,
+            onTap: () => {
+              BlocProvider.of<PhoneSetting>(context).add(DeletePhone(index))
+            },
+          ),
+          IconSlideAction(
+            caption: Language.of(context).getText("settings.edit"),
+            color: Colors.teal,
+            icon: Icons.mode_edit,
+            onTap: () {
+              confirmEdit(
+                context: context,
+                userName: PhoneSetting.dsPhone[index].name,
+                phoneNumber: PhoneSetting.dsPhone[index].phone,
+                index:index,
+              );
+              //BlocProvider.of<PhoneSetting>(context).add(EditPhone(index,))
+            },
+          ),
         ]);
   }
 

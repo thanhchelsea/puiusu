@@ -53,7 +53,9 @@
     "select_language": "Select language",
     "earthquake_magnitude": "Earthquake magnitude",
     "more_than": "More than",
-    "radius_from_your_position": "Radius from your position"
+    "radius_from_your_position": "Radius from your position",
+    "delete": "Delete",
+    "edit": "Edit"
   },
   "details": {
     "map": "Map",

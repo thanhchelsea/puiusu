@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_earthquake_network/blocs/app_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/base_bloc/base.dart';
 import 'package:flutter_earthquake_network/blocs/home_bloc.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
@@ -10,8 +9,6 @@ import 'package:flutter_earthquake_network/ui/template/design_course_app_theme.d
 import 'package:flutter_earthquake_network/ui/widgets/earthquake_item.dart';
 import 'package:flutter_earthquake_network/ui/widgets/map_widget.dart';
 import 'package:flutter_earthquake_network/ui/widgets/widgets.dart';
-
-import '../../constants.dart';
 
 class MapScreen extends StatelessWidget {
   MapScreen();

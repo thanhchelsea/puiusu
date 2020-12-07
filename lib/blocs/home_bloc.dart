@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
+
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
 import 'package:flutter_earthquake_network/data/repository/earthquake_repositorry.dart';
-import 'package:flutter_earthquake_network/ui/widgets/earthquake_item.dart';
-import '../constants.dart';
-import '../localizations.dart';
 import 'blocs.dart';
 
 class HomeBloc extends BaseBloc {

@@ -17,9 +17,16 @@ class DialogSMSSetting extends StatefulWidget {
   const DialogSMSSetting({
     Key key,
     this.barrierDismissible = true,
+    this.confirm,
+    this.username,
+    this.phonenumber,
+    this.index,
   }) : super(key: key);
 
   final bool barrierDismissible;
+  final Function confirm;
+  final String username,phonenumber;
+  final index;
   @override
   DialogSMSSettingState createState() => DialogSMSSettingState();
 }
@@ -32,6 +39,12 @@ class DialogSMSSettingState extends State<DialogSMSSetting>
   @override
   void initState() {
     super.initState();
+    if(widget.username!=null){
+      nameContact.text=widget.username;
+    }
+    if(widget.phonenumber!=null){
+      phoneContact.text=widget.phonenumber;
+    }
   }
 
   @override
@@ -191,11 +204,20 @@ class DialogSMSSettingState extends State<DialogSMSSetting>
                       String name = nameContact.text;
                       String phone = phoneContact.text;
                       if (_formKey.currentState.validate()) {
-                        BlocProvider.of<PhoneSetting>(context).add(
-                          SaveListPhone(
-                            new PhoneNumber(name: name, phone: phone),
-                          ),
-                        );
+                        if(widget.confirm==null){print("k null");
+                          BlocProvider.of<PhoneSetting>(context).add(
+                            SaveListPhone(
+                              new PhoneNumber(name: name, phone: phone),
+                            ),
+                          );
+                        }
+                        else{
+                          BlocProvider.of<PhoneSetting>(context).add(
+                            EditPhone(widget.index,
+                              new PhoneNumber(name: name, phone:phone),
+                            ),
+                          );
+                        }
                         Navigator.pop(context);
                       }
                     } catch (_) {}

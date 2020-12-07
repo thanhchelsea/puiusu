@@ -2,7 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_earthquake_network/blocs/alert_bloc.dart';
+import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
 import 'package:flutter_earthquake_network/ui/screens/safety_screen.dart';
@@ -145,6 +145,7 @@ class _HomeState extends State<Home>
         }
         BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
         showNotification(e);
+        BlocProvider.of<HomeBloc>(context).add(Loading());
       },
       onLaunch: (Map<String, dynamic> message) async {
         // kích hoạt nếu ứng dụng bị chấm dứt hoàn toàn.

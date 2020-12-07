@@ -35,8 +35,8 @@ class EarthquakeRepository {
   Future<List<EarthquakeModel>> getLatestListEarthquake() async {
     var response = await http.get(ApiConstant.LIST_EARTHQUAKE +
         ApiConstant.QUERYl_LIST(nowDay - week, nowDay));
-//    print(ApiConstant.LIST_EARTHQUAKE +
-//        ApiConstant.QUERYl_LIST(nowDay - month, nowDay));
+    print(ApiConstant.LIST_EARTHQUAKE +
+        ApiConstant.QUERYl_LIST(nowDay - week, nowDay));
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
       List<EarthquakeModel> list = (jsonResponse as List)

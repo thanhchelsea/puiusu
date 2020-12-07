@@ -53,7 +53,9 @@
     "select_language": "Chọn ngôn ngữ",
     "earthquake_magnitude": "Độ lớn động đất",
     "more_than": "Lớn hơn",
-    "radius_from_your_position": "Khoảng cách tính từ vị trí của bạn"
+    "radius_from_your_position": "Khoảng cách tính từ vị trí của bạn",
+    "delete": "Xóa",
+    "edit": "Sửa"
   },
   "details": {
     "map": "Bản đồ",
