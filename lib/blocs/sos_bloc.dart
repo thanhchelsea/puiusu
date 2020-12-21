@@ -4,7 +4,7 @@ import '../data/model/phone_number.dart';
 import 'base_bloc/base.dart';
 
 class SOSBloc extends BaseBloc {
-  static List<PhoneNumber> dsP = [];
+  static List<PhoneNumberContact> dsP = [];
   SOSBloc();
   Future<bool> _sendSMS() async {
     // FUNTION gui tin nhan
@@ -15,8 +15,8 @@ class SOSBloc extends BaseBloc {
     } else {
       String message = await Common.getMessageSOS();
       String message1 = await Common.getUserLocation();
-      dsP = await PhoneNumber.decodeMusics(listPhone);
-      for (PhoneNumber i in dsP) {
+      dsP = await PhoneNumberContact.decodeMusics(listPhone);
+      for (PhoneNumberContact i in dsP) {
         recipents.add(i.phone);
       }
       if (message == null) message = "Giúp tôi. Tôi đang ở : !!!!!!";
@@ -44,7 +44,7 @@ class SOSBloc extends BaseBloc {
       print("gg");
       String listPhone = await Common.getListPhone();
       if (listPhone != null) {
-        dsP = await PhoneNumber.decodeMusics(listPhone);
+        dsP = await PhoneNumberContact.decodeMusics(listPhone);
       }
       yield LoadedState(data: "ok");
     }

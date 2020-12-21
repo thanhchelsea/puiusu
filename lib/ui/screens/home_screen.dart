@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_earthquake_network/blocs/blocs.dart';
 import 'package:flutter_earthquake_network/data/model/earthquake_model.dart';
 import 'package:flutter_earthquake_network/localizations.dart';
+import 'package:flutter_earthquake_network/routes.dart';
 import 'package:flutter_earthquake_network/ui/screens/safety_screen.dart';
 import 'package:flutter_earthquake_network/ui/screens/screens.dart';
 import 'package:flutter_earthquake_network/ui/template/app_theme.dart';
@@ -22,7 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home>
-    with TickerProviderStateMixin, AutomaticKeepAliveClientMixin<Home> {
+    with TickerProviderStateMixin {
   final Location location = Location();
   AnimationController animationController;
 
@@ -53,16 +54,17 @@ class _HomeState extends State<Home>
     }
   }
 
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => true;
+//  @override
+//  // TODO: implement wantKeepAlive
+//  bool get wantKeepAlive => true;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   final List<EarthquakeModel> messages = [];
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  Future onSelectNotification(String payload) {
+  Future onSelectNotification(String payload) async{
+ //   Navigator.pushNamed(context, Routes.settingScreen);
     debugPrint("payload : $payload");
-    setState(() {
+  await setState(() {
       tabBody = AlertScreen();
       tabIconsList[1].isSelected = true;
       tabIconsList[0].isSelected = false;
@@ -82,11 +84,12 @@ class _HomeState extends State<Home>
         Language.of(context).getText("alert.new_earthquake"),
         e.address,
         platform,
-        payload: 'Nitish Kumar Singh is part time Youtuber');
+        payload: 'notification aloooooo');
   }
 
   @override
   void initState() {
+    tabIconsList[0].isSelected = false;
     tabIconsList.forEach((TabIconData tab) {
       tab.isSelected = false;
     });
@@ -104,10 +107,10 @@ class _HomeState extends State<Home>
     });
 
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var android = new AndroidInitializationSettings('vn');
     var iOS = new IOSInitializationSettings();
     var initSetttings = new InitializationSettings(android: android, iOS: iOS);
-    flutterLocalNotificationsPlugin.initialize(initSetttings,
+    flutterLocalNotificationsPlugin..initialize(initSetttings,
         onSelectNotification: onSelectNotification);
     _firebaseMessaging.getToken().then((token) {
       print(token.toString() + " token firebase");
@@ -117,7 +120,7 @@ class _HomeState extends State<Home>
       onMessage: (Map<String, dynamic> message) async {
         //kích hoạt khi ứng dụng đang mở và chạy ở nền trước.
         print(
-            "onMessage: $message"); //{notification: {title: run nowwwwww, body: die you ....quickly}, data: {id: 1}}
+            "onMessage: $message");
         final notification = message['data'];
         EarthquakeModel e;
         try {
@@ -144,7 +147,7 @@ class _HomeState extends State<Home>
           print(e.toString());
         }
         BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
-        showNotification(e);
+       showNotification(e);
         BlocProvider.of<HomeBloc>(context).add(Loading());
       },
       onLaunch: (Map<String, dynamic> message) async {
@@ -174,11 +177,12 @@ class _HomeState extends State<Home>
             depth: double.parse(depth),
             riskLevel: int.parse(riskLevel),
           );
+          BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
         } catch (e) {
           print(e.toString());
         }
-        BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
-        showNotification(e);
+
+       // showNotification(e);
       },
       onResume: (Map<String, dynamic> message) async {
         // kích hoạt nếu ứng dụng bị đóng nhưng vẫn chạy trong nền.
@@ -205,11 +209,12 @@ class _HomeState extends State<Home>
             depth: double.parse(depth),
             riskLevel: int.parse(riskLevel),
           );
+          BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
         } catch (e) {
           print(e.toString());
         }
-        BlocProvider.of<AlertBloc>(context).add(AddNotification(e));
-        showNotification(e);
+
+//        showNotification(e);
       },
     );
     _firebaseMessaging.requestNotificationPermissions(

@@ -8,7 +8,7 @@ import '../utils/common.dart';
 import 'base_bloc/base.dart';
 
 class PhoneSetting extends BaseBloc {
-  static List<PhoneNumber> dsPhone = [];
+  static List<PhoneNumberContact> dsPhone = [];
 
   @override
   // TODO: implement initialState
@@ -20,35 +20,35 @@ class PhoneSetting extends BaseBloc {
     if (event is LoadPhone) {
       String listP = await Common.getListPhone();
       if (listP != null) {
-        dsPhone = PhoneNumber.decodeMusics(listP);
+        dsPhone = PhoneNumberContact.decodeMusics(listP);
       }
       yield SavedPhone();
     }
     if (event is SaveListPhone) {
       String listP = await Common.getListPhone();
       if (listP != null) {
-        dsPhone = PhoneNumber.decodeMusics(listP);
+        dsPhone = PhoneNumberContact.decodeMusics(listP);
       }
       dsPhone.add(event.phone);
-      String saveListPhone = PhoneNumber.encodeMusics(dsPhone);
+      String saveListPhone = PhoneNumberContact.encodeMusics(dsPhone);
       await Common.saveListPhone(saveListPhone);
       yield ShowListPhone(data: dsPhone);
     }
     if (event is DeletePhone) {
       String listP = await Common.getListPhone();
       if (listP != null) {
-        dsPhone = PhoneNumber.decodeMusics(listP);
+        dsPhone = PhoneNumberContact.decodeMusics(listP);
       }
       dsPhone.removeAt(event.phone);
 
-      String saveListPhone = PhoneNumber.encodeMusics(dsPhone);
+      String saveListPhone = PhoneNumberContact.encodeMusics(dsPhone);
       await Common.saveListPhone(saveListPhone);
       yield ShowListPhone(data: dsPhone);
     }
     if (event is EditPhone) {
       String listP = await Common.getListPhone();
       if (listP != null) {
-        dsPhone = PhoneNumber.decodeMusics(listP);
+        dsPhone = PhoneNumberContact.decodeMusics(listP);
       }
       for(int i=0;i<dsPhone.length;i++){
         if(i==event.phone){
@@ -58,7 +58,7 @@ class PhoneSetting extends BaseBloc {
           break;
         }
       }
-      String saveListPhone = PhoneNumber.encodeMusics(dsPhone);
+      String saveListPhone = PhoneNumberContact.encodeMusics(dsPhone);
       await Common.saveListPhone(saveListPhone);
       yield ShowListPhone(data: dsPhone);
     }
@@ -87,7 +87,7 @@ class LoadPhone extends BaseEvent {
 }
 
 class SaveListPhone extends BaseEvent {
-  PhoneNumber phone;
+  PhoneNumberContact phone;
 
   SaveListPhone(this.phone);
   @override
@@ -102,7 +102,7 @@ class DeletePhone extends BaseEvent {
   List<Object> get props => [phone];
 }
 class EditPhone extends BaseEvent{
-  int phone;PhoneNumber p;
+  int phone;PhoneNumberContact p;
   EditPhone(this.phone,this.p);
   @override
   List<Object> get props => [phone,p];

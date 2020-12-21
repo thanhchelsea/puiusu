@@ -51,7 +51,7 @@ class _ConfigSMSSettingState extends State<ConfigSMSSetting> {
       context: context,
       builder: (BuildContext context) => DialogSMSSetting(
         barrierDismissible: true,
-        confirm: () => {print("ggf")},
+        confirm: () => {print("edit")},
         username: userName,
         phonenumber: phoneNumber,
         index:index

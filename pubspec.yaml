@@ -50,6 +50,7 @@ dependencies:
   webview_flutter: 0.3.18
   flutter_local_notifications: ^3.0.1+6
   flutter_slidable: ^0.5.7
+  contact_picker: ^0.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
