@@ -35,81 +35,84 @@ class _SearchWidgetState extends State<SearchWidget> {
       child: BlocConsumer<SearchBloc, BaseState>(
         listener: (context, state) {},
         builder: (context, state) {
-          return Container(
-            child: Scaffold(
-              body: BaseScreenMethod(
-                iconBack: true,
-                title: 'search',
-                body: NestedScrollView(
+          return BaseScreenMethod(
+            iconBack: true,
+            title: 'search',
+            body: BlocConsumer<SearchBloc,BaseState>(
+              listener: (context, state) {
+
+              },
+              builder: (context, state) {
+                return NestedScrollView(
                   controller: _scrollController,
                   headerSliverBuilder:
                       (BuildContext context, bool innerBoxIsScrolled) {
                     return <Widget>[
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
-                          (BuildContext context, int index) {
+                              (BuildContext context, int index) {
                             return Column(
                               children: <Widget>[
                                 getSearchBarUI(),
                                 state is LoadedState<List<CityModel>>
                                     ? Container(
-                                        //  color: HotelAppTheme.buildLightTheme().backgroundColor,
-                                        padding: const EdgeInsets.only(
-                                          left: 16,
-                                          right: 16,
-                                          top: 8,
-                                          bottom: 8,
-                                        ),
-                                        width:
-                                            DeviceUtil.getDeviceWidth(context),
-                                        child: Column(
-                                          children: List.generate(
-                                              state.data.length, (index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                _txtController.text = "";
-                                                setState(() {
-                                                  _isShowSuggest = false;
-                                                  //  BlocProvider.of<SearchBloc>(context).add(EmptyText());
-                                                  BlocProvider.of<SearchBloc>(
-                                                          context)
-                                                      .add(SearchEarthquke(state
-                                                          .data[index].name));
-                                                });
-                                              },
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Container(
-                                                    child: Icon(
-                                                      Icons.stars,
-                                                      color: HotelAppTheme
-                                                              .buildLightTheme()
-                                                          .primaryColor,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    padding: EdgeInsets.only(
-                                                        left: 20,
-                                                        top: 10,
-                                                        bottom: 10,),
-                                                    child: Text(
-                                                      state.data[index].name,
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600,),
-                                                    ),
-                                                  ),
-                                                ],
+                                  //  color: HotelAppTheme.buildLightTheme().backgroundColor,
+                                  padding: const EdgeInsets.only(
+                                    left: 16,
+                                    right: 16,
+                                    top: 8,
+                                    bottom: 8,
+                                  ),
+                                  width:
+                                  DeviceUtil.getDeviceWidth(context),
+                                  child: Column(
+                                    children: List.generate(
+                                        state.data.length, (index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          _txtController.text = "";
+                                          setState(() {
+                                            _isShowSuggest = false;
+                                            //  BlocProvider.of<SearchBloc>(context).add(EmptyText());
+                                            BlocProvider.of<SearchBloc>(
+                                                context)
+                                                .add(SearchEarthquke(state
+                                                .data[index].name));
+                                          });
+                                        },
+                                        child: Row(
+                                          children: <Widget>[
+                                            Container(
+                                              child: Icon(
+                                                Icons.stars,
+                                                color: HotelAppTheme
+                                                    .buildLightTheme()
+                                                    .primaryColor,
                                               ),
-                                            );
-                                          }),
+                                            ),
+                                            Container(
+                                              padding: EdgeInsets.only(
+                                                left: 20,
+                                                top: 10,
+                                                bottom: 10,),
+                                              child: Text(
+                                                state.data[index].name,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight.w600,),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        alignment: Alignment.centerLeft,
-                                      )
+                                      );
+                                    }),
+                                  ),
+                                  alignment: Alignment.centerLeft,
+                                )
                                     : Container(
-                                        padding: EdgeInsets.only(bottom: 10),
-                                      )
+                                  padding: EdgeInsets.only(bottom: 10),
+                                )
                                 //getTimeDateUI(),
                               ],
                             );
@@ -130,27 +133,27 @@ class _SearchWidgetState extends State<SearchWidget> {
                   },
                   body: state is LoadedState<List<EarthquakeModel>>
                       ? Container(
-                          color:
-                              HotelAppTheme.buildLightTheme().backgroundColor,
-                          child: ListView.builder(
-                            padding: EdgeInsets.only(
-                                left: 10, right: 10, bottom: 20),
-                            itemCount: state.data.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return EarthquakeItem(state.data[index], index);
-                            },
-                          ),
-                        )
+                    color:
+                    HotelAppTheme.buildLightTheme().backgroundColor,
+                    child: ListView.builder(
+                      padding: EdgeInsets.only(
+                          left: 10, right: 10, bottom: 20),
+                      itemCount: state.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return EarthquakeItem(state.data[index], index);
+                      },
+                    ),
+                  )
                       : state is ErrorState<String>
-                          ? Container(
-                              padding: EdgeInsets.only(top: 20),
-                              alignment: Alignment.topCenter,
-                              child: Text(
-                                  Language.of(context).getText(state.data)),
-                            )
-                          : Container(),
-                ),
-              ),
+                      ? Container(
+                    padding: EdgeInsets.only(top: 20),
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                        Language.of(context).getText(state.data)),
+                  )
+                      : Container(),
+                );
+              },
             ),
           );
         },

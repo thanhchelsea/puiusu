@@ -22,7 +22,7 @@ class SearchBloc extends BaseBloc {
         if (event.city.isNotEmpty) {
           yield LoadingState();
           listCity = await earthquakeRepository.getListCity(event.city);
-          if (listCity != null) {
+          if (listCity.isNotEmpty) {
             print(listCity.length);
             yield LoadedState(data: listCity);
           } else {
@@ -43,17 +43,29 @@ class SearchBloc extends BaseBloc {
       yield LoadingState();
       ListCityEarthquake=await earthquakeRepository.getEarthquakeOnCity(event.city);
       if (ListCityEarthquake.isNotEmpty) {
-//        print(ListCityEarthquake.length);
         yield LoadedState(data: ListCityEarthquake);
       } else {
+        print("k co kq nha");
         yield ErrorState(data: "search_null");
       }
     }
     if(event is SortMagntitude){
+      yield LoadingState();
+      print("sap xep theo do lon");
       ListCityEarthquake.sort((a, b) => b.magnitude.compareTo(a.magnitude));// sap xep theo do lon giam dan
+      for(EarthquakeModel i in ListCityEarthquake){
+        print(i.magnitude);
+      }
+      yield LoadedState(data: ListCityEarthquake);
     }
     if(event is SortTime){
+      yield LoadingState();
+      print("sap xep theo thoi gian");
       ListCityEarthquake.sort((a, b) => b.time.compareTo(a.time));// sap xep theo thoi gian gan nhat
+      for(EarthquakeModel i in ListCityEarthquake){
+        print(i.time);
+      }
+      yield LoadedState(data: ListCityEarthquake);
     }
   }
 }

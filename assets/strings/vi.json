@@ -100,7 +100,7 @@
   "time": {
     "0": " Giờ","1": " Ngày","2": " Tuần","3": " Tháng","4": "Cũ hơn"
   },
-  "search_null": "Không tim thấy kết quả nào",
+  "search_null": "Chưa có động đất xảy ra tại đây!",
   "report_success": "Gửi báo cáo thành công",
   "attack": "Ứng phó",
   "safety": "Đối phó",
